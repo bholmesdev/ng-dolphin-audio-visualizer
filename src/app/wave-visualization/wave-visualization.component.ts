@@ -97,7 +97,7 @@ export class WaveVisualizationComponent implements OnInit {
       })
 
       const regionEls = document.getElementsByClassName('timeline-region')
-      for (const regionEl of regionEls) {
+      for (const regionEl of Array.from(regionEls)) {
         const startTime = regionEl.getAttribute('data-start')
         const endTime = regionEl.getAttribute('data-end')
         if (startTime <= playbackTime && endTime >= playbackTime) {
