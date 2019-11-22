@@ -1,0 +1,211 @@
+[
+  {
+    "id": 1924,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "NO",
+    "timecode": "01:38:17",
+    "description": "SIX SPECKLED LHASA"
+  },
+  {
+    "id": 1925,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "YES",
+    "timecode": "01:40:00",
+    "description": "LINUS"
+  },
+  {
+    "id": 1926,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "YES",
+    "timecode": "01:42:38",
+    "description": "PICASSO? FLUKE NICK"
+  },
+  {
+    "id": 1927,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "YES",
+    "timecode": "01:43:00",
+    "description": "MALIBU"
+  },
+  {
+    "id": 1928,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "YES",
+    "timecode": "01:43:00",
+    "description": "SUNAMI"
+  },
+  {
+    "id": 1929,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "YES",
+    "timecode": "01:44:50",
+    "description": "LHASA"
+  },
+  {
+    "id": 1930,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "NO",
+    "timecode": "01:56:00",
+    "description": "LINUS SUNAMI"
+  },
+  {
+    "id": 1931,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "NO",
+    "timecode": "01:57:58",
+    "description": "LHASA PEC RUB"
+  },
+  {
+    "id": 1932,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "YES",
+    "timecode": "01:58:20",
+    "description": "KAI"
+  },
+  {
+    "id": 1933,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "NO",
+    "timecode": "02:02:00",
+    "description": "LINUS"
+  },
+  {
+    "id": 1934,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "NO",
+    "timecode": "02:05:00",
+    "description": "PEC HEAD LHASA"
+  },
+  {
+    "id": 1935,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "NO",
+    "timecode": "02:05:31",
+    "description": "LINUS POSTURE"
+  },
+  {
+    "id": 1936,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "NO",
+    "timecode": "02:06:00",
+    "description": "LHASA PLUS SUNAMI"
+  },
+  {
+    "id": 1937,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "NO",
+    "timecode": "02:07:51",
+    "description": "PEC THROAT RUB"
+  },
+  {
+    "id": 1938,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "NO",
+    "timecode": "02:08:26",
+    "description": "PEC RUB FLUKE"
+  },
+  {
+    "id": 1939,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "NO",
+    "timecode": "02:08:56",
+    "description": "INVERTED TAIL SLAP"
+  },
+  {
+    "id": 1940,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "NO",
+    "timecode": "02:09:22",
+    "description": "MALIBU PEC RUB LHASA"
+  },
+  {
+    "id": 1941,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "NO",
+    "timecode": "02:09:46",
+    "description": "LHASA PEC RUB MALIBU"
+  },
+  {
+    "id": 1942,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "YES",
+    "timecode": "02:14:00 ",
+    "description": "SUNAMI MARKS"
+  }
+]

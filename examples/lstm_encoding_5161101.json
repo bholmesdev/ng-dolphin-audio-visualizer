@@ -1,0 +1,236 @@
+[
+  [
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 765952,
+      "stop": 774706,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 69
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 9863168,
+      "stop": 9871922,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 21
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 9904128,
+      "stop": 9912882,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 94
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 9965568,
+      "stop": 9974322,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 67
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 9973760,
+      "stop": 9982514,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 67
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 9977856,
+      "stop": 9986610,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 47
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 10006528,
+      "stop": 10015282,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 100
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 10047488,
+      "stop": 10056242,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 31
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 10092544,
+      "stop": 10101298,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 100
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 10104832,
+      "stop": 10113586,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 30
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 10108928,
+      "stop": 10117682,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 120
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 10113024,
+      "stop": 10121778,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 3
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 10121216,
+      "stop": 10129970,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 30
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 10125312,
+      "stop": 10134066,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 68
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 10182656,
+      "stop": 10191410,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 87
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 11542528,
+      "stop": 11551282,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 30
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 11665408,
+      "stop": 11674162,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 36
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 11845632,
+      "stop": 11854386,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 83
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 12533760,
+      "stop": 12542514,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 20
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 20611072,
+      "stop": 20619826,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 121
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 22032384,
+      "stop": 22041138,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 73
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 25403392,
+      "stop": 25412146,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 5
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 25587712,
+      "stop": 25596466,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 113
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 29552640,
+      "stop": 29561394,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 115
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 31801344,
+      "stop": 31810098,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 20
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 32337920,
+      "stop": 32346674,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 21
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 33361920,
+      "stop": 33370674,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 5
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 34361344,
+      "stop": 34370098,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 21
+    },
+    {
+      "encoding": 5161101,
+      "filename": "05161101.m4a",
+      "start": 34410496,
+      "stop": 34419250,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 24
+    }
+  ]
+]
