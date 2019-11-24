@@ -2,6 +2,13 @@
 <section class="playback">
   <p class="playback-time">{{ playbackTime }}s</p>
   <button (click)="togglePlayback()">Play / Pause</button>
+  <div><p>Zoom: <input type="number" [(ngModel)]="value"></p>
+    <ng5-slider [(value)]="value"
+                [options]="options"
+                (userChangeStart)="onUserChangeStart($event)"
+                (userChangeEnd)="onUserChangeEnd($event)">
+    </ng5-slider>
+  </div>
 </section>
 <section>
   <div id="spectrogram"></div>
@@ -32,4 +39,7 @@
       </button>
     </section>
   </div>
+</section>
+<section class="zoom-section">
+
 </section>

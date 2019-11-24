@@ -5,6 +5,7 @@ import RegionPlugin from 'wavesurfer.js/src/plugin/regions'
 import TimelinePlugin from 'wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js'
 import { audioFile, audioLength, timelines } from '../../assets/dolphin-data.js'
 import { TimelineModel, RegionModel } from './timeline-model'
+import {ChangeContext, Options} from "ng5-slider";
 
 const getRandomColor = () =>
   'rgba(' +
@@ -54,24 +55,40 @@ const assignColorsToTimelineRegions = (
   styleUrls: ['./wave-visualization.component.scss'],
 })
 export class WaveVisualizationComponent implements OnInit {
-  waveInstance: any
+  waveInstance: WaveSurfer
   timelines: Array<TimelineModel> = []
   waveformWidth: number = 0
   zoomFactor: number = 300
   translateOnScroll: string = ''
   playbackTime: number = 0
+  prevZoomFactor: number = 0
+  multiplier = 1
+
+  //ng-5 slider options
+  value: number = 5;
+  options: Options = {
+    floor: 0,
+    ceil: 20
+  };
 
   constructor(public zone: NgZone) {
-    this.waveformWidth = audioLength * this.zoomFactor
+    this.waveformWidth = audioLength * this.zoomFactor * this.multiplier
+  }
 
+  ngOnInit() {
+
+    if(timelines.length > 0) {
+      this.timelines = []
+    }
     timelines.forEach((timeline: TimelineModel) => {
       const coloredTimeline = assignColorsToTimelineRegions(timeline)
       this.timelines.push(coloredTimeline)
     })
-  }
 
-  ngOnInit() {
-    const wave = WaveSurfer.create({
+    if(this.waveInstance != null) {
+      this.waveInstance.destroy()
+    }
+    this.waveInstance = WaveSurfer.create({
       container: '#waveform',
       waveColor: '#ddd',
       progressColor: '#333',
@@ -88,12 +105,10 @@ export class WaveVisualizationComponent implements OnInit {
       ]
     })
 
-   
-    this.waveInstance = wave
-    // wave.on('ready', function () { 
+    // wave.on('ready', function () {
     //   var timeline = Object.create(WaveSurfer.Timeline);
-    //    timeline.init({ 
-    //      wavesurfer: wave, 
+    //    timeline.init({
+    //      wavesurfer: wave,
     //      container: '#waveform-timeline'
     //     });
     // });
@@ -103,10 +118,10 @@ export class WaveVisualizationComponent implements OnInit {
     //   console.log(timeline);
     // });
 
-    wave.load(`../assets/${audioFile}`)
-    wave.zoom(this.zoomFactor)
+    this.waveInstance.load(`../assets/${audioFile}`)
+    this.waveInstance.zoom(this.zoomFactor * this.multiplier)
 
-    wave.on('scroll', event => {
+    this.waveInstance.on('scroll', event => {
       this.translateOnScroll = `translateX(${-event.target.scrollLeft}px)`
     })
 
@@ -128,10 +143,10 @@ export class WaveVisualizationComponent implements OnInit {
     }
 
     // Update current playback time as audio plays
-    wave.on('audioprocess', playbackTime => playbackHandler(playbackTime))
+    this.waveInstance.on('audioprocess', playbackTime => playbackHandler(playbackTime))
 
     // Update current playback time when user manually moves playhead
-    wave.on('seek', percentScrubbed =>
+    this.waveInstance.on('seek', percentScrubbed =>
       playbackHandler(percentScrubbed * audioLength)
     )
   }
@@ -142,5 +157,27 @@ export class WaveVisualizationComponent implements OnInit {
     } else {
       this.waveInstance.play()
     }
+  }
+
+  onUserChangeStart($event: ChangeContext) {
+    console.log($event)
+    this.prevZoomFactor = $event.value;
+  }
+
+  onUserChangeEnd($event: ChangeContext) {
+    const change = $event.value - this.prevZoomFactor;
+    if(change > 0) {
+      this.multiplier *= change;
+      console.log("CHECK start");
+      this.ngOnInit();
+      console.log("CHECK end");
+
+    } else if(change < 0){
+      this.multiplier /= change;
+      console.log("CHECK start");
+      this.ngOnInit();
+      console.log("CHECK end");
+    }
+
   }
 }
