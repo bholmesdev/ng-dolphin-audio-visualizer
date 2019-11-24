@@ -103,6 +103,12 @@ section.playback {
     width: 50px;
   }
 
+  ng5-slider {
+    flex: 1;
+    max-width: 500px;
+    margin-top: -20px;
+  }
+
   button {
     margin: 20px;
     background: #3483eb;

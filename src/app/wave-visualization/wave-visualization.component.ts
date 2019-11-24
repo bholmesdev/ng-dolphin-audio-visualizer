@@ -27,9 +27,15 @@ export class WaveVisualizationComponent implements OnInit {
   //ng-5 slider options
   zoomSliderOptions = {
     initialValue: 5,
-    range: {
-      floor: 0.1,
-      ceil: 5,
+    options: {
+      floor: 1,
+      ceil: 8,
+      step: 1,
+      showTicksValues: true,
+      ticksArray: [1, 2, 3, 5, 8],
+      translate: (value: number): string => {
+        return value + 'x'
+      },
     },
   }
 
