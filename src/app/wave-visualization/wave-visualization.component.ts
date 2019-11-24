@@ -85,7 +85,8 @@ export class WaveVisualizationComponent implements OnInit {
           labels: true,
         }),
         TimelinePlugin.create({
-          container: '#wave-timeline'
+          container: '#wave-timeline',
+          primaryLabelInterval: 1
         })
       ]
     })
