@@ -6,9 +6,6 @@ import TimelinePlugin from 'wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js
 import { audioFile, audioLength, timelines } from '../../assets/dolphin-data.js'
 import { TimelineModel, RegionModel } from './timeline-model'
 
-
-
-
 const getRandomColor = () =>
   'rgba(' +
   [
