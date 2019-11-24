@@ -9,6 +9,7 @@ import { ChangeContext } from 'ng5-slider'
 import {
   assignColorsToTimelineRegions,
   formatTimelineIntervals,
+  calcWidth,
 } from './timelineHelpers'
 
 @Component({
@@ -20,14 +21,11 @@ export class WaveVisualizationComponent implements OnInit {
   waveInstance: WaveSurfer
   timelines: Array<TimelineModel> = []
   waveformWidth: number = 0
-  zoomFactor: number = 300
   translateOnScroll: string = ''
   playbackTime: number = 0
-  prevZoomFactor: number = 0
-  multiplier = 1
 
   //ng-5 slider options
-  ngSliderOptions = {
+  zoomSliderOptions = {
     initialValue: 5,
     range: {
       floor: 0.1,
@@ -36,13 +34,10 @@ export class WaveVisualizationComponent implements OnInit {
   }
 
   constructor(public zone: NgZone) {
-    this.waveformWidth = audioLength * this.zoomFactor * this.multiplier
+    this.timelines = []
   }
 
   ngOnInit() {
-    if (timelines.length > 0) {
-      this.timelines = []
-    }
     timelines.forEach((timeline: TimelineModel) => {
       const coloredTimeline = assignColorsToTimelineRegions(
         timeline,
@@ -73,16 +68,8 @@ export class WaveVisualizationComponent implements OnInit {
       ],
     })
 
-    this.waveInstance.on('ready', () => {
-      const spectrogramCanvas: HTMLElement = document.querySelector(
-        '#spectrogram > spectrogram > canvas:nth-of-type(2)'
-      )
-      spectrogramCanvas.style.minWidth = '100%'
-      // spectrogramCanvas.setAttribute('style', 'min-width: 100%')
-    })
-
     this.waveInstance.load(`../assets/${audioFile}`)
-    this.waveInstance.zoom(this.zoomFactor * this.multiplier)
+    this.zoomWaveform(this.zoomSliderOptions.initialValue)
 
     this.waveInstance.on('scroll', event => {
       this.translateOnScroll = `translateX(${-event.target.scrollLeft}px)`
@@ -124,14 +111,21 @@ export class WaveVisualizationComponent implements OnInit {
     }
   }
 
-  onUserChangeEnd($event: ChangeContext) {
-    console.log($event.value)
-    this.waveInstance.spectrogram.width = 120 * $event.value * audioLength
-    console.log(this.waveInstance.spectrogram)
-    this.waveInstance.zoom(60 * $event.value)
+  zoomWaveform(zoomValue) {
+    const spectrogramScaleFactor = 2
+    const zoomedWidth = calcWidth(zoomValue, audioLength)
+
+    this.waveInstance.spectrogram.width = Math.max(
+      screen.width,
+      zoomedWidth * spectrogramScaleFactor
+    )
+    this.waveInstance.zoom(zoomedWidth / audioLength)
     this.zone.run(() => {
-      this.waveformWidth = 60 * $event.value * audioLength
-      console.log(this.waveformWidth)
+      this.waveformWidth = zoomedWidth
     })
+  }
+
+  onSliderZoom($event: ChangeContext) {
+    this.zoomWaveform($event.value)
   }
 }

@@ -5,9 +5,9 @@
   <div>
     <p>Zoom: <input type="number" [(ngModel)]="value" /></p>
     <ng5-slider
-      [(value)]="ngSliderOptions.initialValue"
-      [options]="ngSliderOptions.range"
-      (userChangeEnd)="onUserChangeEnd($event)"
+      [(value)]="zoomSliderOptions.initialValue"
+      [options]="zoomSliderOptions.range"
+      (userChangeEnd)="onSliderZoom($event)"
     >
     </ng5-slider>
   </div>
@@ -18,11 +18,6 @@
   <div id="wave-timeline"></div>
 </section>
 <section class="timeline-scrollbox">
-  <!-- <div 
-  class="manualEncoding"
-  [style.width.px]="waveformWidth"
-  [style.transform]="translateOnScroll"
-  ></div> -->
   <div
     class="timeline-container"
     [style.width.px]="waveformWidth"

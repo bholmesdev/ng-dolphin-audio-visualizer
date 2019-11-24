@@ -10,6 +10,9 @@ const getRandomColor = () =>
   ] +
   ')'
 
+export const calcWidth = (zoomValue, audioLength) =>
+  60 * zoomValue * audioLength
+
 export const formatTimelineIntervals = pxPerSec => {
   var retval = 1
   if (pxPerSec >= 25 * 100) {
