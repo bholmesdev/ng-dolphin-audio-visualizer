@@ -2,8 +2,12 @@ import { Component, OnInit, NgZone } from '@angular/core'
 import WaveSurfer from 'wavesurfer.js'
 import SpectrogramPlugin from 'wavesurfer.js/src/plugin/spectrogram'
 import RegionPlugin from 'wavesurfer.js/src/plugin/regions'
+import TimelinePlugin from 'wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js'
 import { audioFile, audioLength, timelines } from '../../assets/dolphin-data.js'
 import { TimelineModel, RegionModel } from './timeline-model'
+
+
+
 
 const getRandomColor = () =>
   'rgba(' +
@@ -80,10 +84,27 @@ export class WaveVisualizationComponent implements OnInit {
           container: '#spectrogram',
           labels: true,
         }),
-      ],
+        TimelinePlugin.create({
+          container: '#wave-timeline'
+        })
+      ]
     })
 
+   
     this.waveInstance = wave
+    // wave.on('ready', function () { 
+    //   var timeline = Object.create(WaveSurfer.Timeline);
+    //    timeline.init({ 
+    //      wavesurfer: wave, 
+    //      container: '#waveform-timeline'
+    //     });
+    // });
+    // wave.on('ready', function () {
+    //   console.log(WaveSurfer.Timeline);
+    //   var timeline = Object.create(WaveSurfer.Timeline);
+    //   console.log(timeline);
+    // });
+
     wave.load(`../assets/${audioFile}`)
     wave.zoom(this.zoomFactor)
 

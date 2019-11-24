@@ -4,15 +4,22 @@
   <button (click)="togglePlayback()">Play / Pause</button>
 </section>
 <section>
+  <div id="wave-timeline"></div>
   <div id="spectrogram"></div>
   <div id="waveform"></div>
 </section>
 <section class="timeline-scrollbox">
+  <!-- <div 
+  class="manualEncoding"
+  [style.width.px]="waveformWidth"
+  [style.transform]="translateOnScroll"
+  ></div> -->
   <div
     class="timeline-container"
     [style.width.px]="waveformWidth"
     [style.transform]="translateOnScroll"
   >
+    
     <section class="timeline" *ngFor="let timeline of timelines">
       <button
         *ngFor="let region of timeline.regions"
