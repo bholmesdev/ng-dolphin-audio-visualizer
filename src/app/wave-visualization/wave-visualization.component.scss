@@ -4,6 +4,13 @@ button {
   background: none;
 }
 
+#spectrogram {
+  background: red;
+}
+#spectrogram canvas {
+  min-width: 100%;
+}
+
 #loading {
   display: flex;
   justify-content: center;
@@ -44,12 +51,13 @@ section.timeline-scrollbox {
   padding-top: 70px;
 
   h2 {
-    position: aboslute;
+    position: absolute;
     top: 0;
   }
 
   .timeline-container {
     position: relative;
+    min-width: 100%;
 
     .timeline {
       position: relative;

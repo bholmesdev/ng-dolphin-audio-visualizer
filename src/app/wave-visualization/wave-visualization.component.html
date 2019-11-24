@@ -2,18 +2,20 @@
 <section class="playback">
   <p class="playback-time">{{ playbackTime }}s</p>
   <button (click)="togglePlayback()">Play / Pause</button>
-  <div><p>Zoom: <input type="number" [(ngModel)]="value"></p>
-    <ng5-slider [(value)]="value"
-                [options]="options"
-                (userChangeStart)="onUserChangeStart($event)"
-                (userChangeEnd)="onUserChangeEnd($event)">
+  <div>
+    <p>Zoom: <input type="number" [(ngModel)]="value" /></p>
+    <ng5-slider
+      [(value)]="ngSliderOptions.initialValue"
+      [options]="ngSliderOptions.range"
+      (userChangeEnd)="onUserChangeEnd($event)"
+    >
     </ng5-slider>
   </div>
 </section>
 <section>
   <div id="spectrogram"></div>
-  <div id="wave-timeline"></div>
   <div id="waveform"></div>
+  <div id="wave-timeline"></div>
 </section>
 <section class="timeline-scrollbox">
   <!-- <div 
@@ -26,7 +28,6 @@
     [style.width.px]="waveformWidth"
     [style.transform]="translateOnScroll"
   >
-    
     <section class="timeline" *ngFor="let timeline of timelines">
       <button
         *ngFor="let region of timeline.regions"
@@ -39,7 +40,4 @@
       </button>
     </section>
   </div>
-</section>
-<section class="zoom-section">
-
 </section>
