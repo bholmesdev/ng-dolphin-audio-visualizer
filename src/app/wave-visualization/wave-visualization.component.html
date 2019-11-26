@@ -10,6 +10,7 @@
   </ng5-slider>
 </section>
 <section>
+  <loading-overlay [loading]="loading || zooming"></loading-overlay>
   <div id="spectrogram"></div>
   <div id="waveform"></div>
   <div id="wave-timeline"></div>

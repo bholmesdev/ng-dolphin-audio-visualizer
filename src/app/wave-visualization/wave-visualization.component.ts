@@ -11,7 +11,7 @@ import {
   formatTimelineIntervals,
   calcWidth,
   assignPositionsToAnnotations,
-} from './timelineHelpers'
+} from './timeline-helpers'
 
 @Component({
   selector: 'app-wave-visualization',
@@ -25,6 +25,8 @@ export class WaveVisualizationComponent implements OnInit {
   translateOnScroll: string = ''
   playbackTime: number = 0
   currAnnotation: string = ''
+  loading: boolean
+  zooming: boolean
   exampleAnnotations: any = [
     {
       time: 0,
@@ -57,6 +59,8 @@ export class WaveVisualizationComponent implements OnInit {
   }
 
   constructor(public zone: NgZone) {
+    this.loading = true
+    this.zooming = false
     this.timelines = []
   }
 
@@ -95,9 +99,6 @@ export class WaveVisualizationComponent implements OnInit {
         }),
       ],
     })
-    this.waveInstance.setMute(true)
-    this.playbackHandler(0)
-
     this.waveInstance.load(`../assets/${audioFile}`)
     this.zoomWaveform(this.zoomSliderOptions.initialValue)
 
@@ -114,6 +115,11 @@ export class WaveVisualizationComponent implements OnInit {
     this.waveInstance.on('seek', percentScrubbed =>
       this.playbackHandler(percentScrubbed * audioLength)
     )
+
+    this.waveInstance.on('ready', () => {
+      this.loading = false
+      this.playbackHandler(0)
+    })
   }
 
   playbackHandler(playbackTime) {
@@ -168,15 +174,18 @@ export class WaveVisualizationComponent implements OnInit {
   zoomWaveform(zoomValue) {
     const spectrogramScaleFactor = 2
     const zoomedWidth = calcWidth(zoomValue, audioLength)
-
+    this.zooming = true
+    this.waveformWidth = zoomedWidth
     this.waveInstance.spectrogram.width = Math.max(
       screen.width,
       zoomedWidth * spectrogramScaleFactor
     )
-    this.waveInstance.zoom(zoomedWidth / audioLength)
-    this.zone.run(() => {
-      this.waveformWidth = zoomedWidth
+    this.waveInstance.on('zoom', () => {
+      this.zooming = false
     })
+    setTimeout(() => {
+      this.waveInstance.zoom(zoomedWidth / audioLength)
+    }, 100)
   }
 
   onSliderZoom($event: ChangeContext) {

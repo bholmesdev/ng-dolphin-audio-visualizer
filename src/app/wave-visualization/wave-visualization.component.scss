@@ -8,41 +8,11 @@ button {
   background: none;
 }
 
-#loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#loading > img {
-  height: 50px;
-  width: 50px;
-  margin: 30px;
-  animation: pulse 1s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  30% {
-    transform: scale(1.2);
-  }
-  60% {
-    transform: scale(1);
-  }
-}
-
-#loading > img.anim-delay-1 {
-  animation-delay: 0.333s;
-}
-
-#loading > img.anim-delay-2 {
-  animation-delay: 0.667s;
+section {
+  position: relative;
 }
 
 section.timeline-scrollbox {
-  position: relative;
   margin-top: 10px;
   overflow-x: hidden;
 
@@ -57,7 +27,6 @@ section.timeline-scrollbox {
 
     .annotations.timeline {
       height: 50px;
-      position: relative;
 
       .annotation {
         position: absolute;
@@ -114,7 +83,6 @@ section.timeline-scrollbox {
     }
 
     .timeline {
-      position: relative;
       height: 50px;
       margin-bottom: 15px;
       width: 100%;
@@ -147,11 +115,12 @@ section.timeline-scrollbox {
   }
 }
 
-wave::-webkit-scrollbar {
+:host ::ng-deep #waveform > wave::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px;
 }
-wave::-webkit-scrollbar-thumb {
+
+:host ::ng-deep #waveform > wave::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.5);
 }
