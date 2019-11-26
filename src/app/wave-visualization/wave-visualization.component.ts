@@ -123,7 +123,9 @@ export class WaveVisualizationComponent implements OnInit {
   }
 
   playbackHandler(playbackTime) {
-    const regionEls = document.getElementsByClassName('timeline-region')
+    const regionEls: NodeListOf<HTMLElement> = document.querySelectorAll(
+      '.clusters.timeline > .cluster'
+    )
     for (const regionEl of Array.from(regionEls)) {
       const startTime = regionEl.getAttribute('data-start')
       const endTime = regionEl.getAttribute('data-end')
@@ -134,7 +136,9 @@ export class WaveVisualizationComponent implements OnInit {
       }
     }
 
-    const annotationEls = document.getElementsByClassName('annotation')
+    const annotationEls: NodeListOf<HTMLElement> = document.querySelectorAll(
+      '.annotations.timeline > annotation'
+    )
     const playbackTimeAsPercentage = (playbackTime / audioLength) * 100
     let annotationText = ''
     for (const annotationEl of Array.from(annotationEls).reverse()) {
@@ -160,6 +164,7 @@ export class WaveVisualizationComponent implements OnInit {
   }
 
   selectAnnotation(percentTime: number) {
+    this.waveInstance.clearRegions()
     this.waveInstance.seekTo(percentTime / 100)
   }
 
@@ -168,7 +173,7 @@ export class WaveVisualizationComponent implements OnInit {
     const waveRegion = this.waveInstance.addRegion({
       start: startTime,
       end: endTime,
-      color: 'cyan',
+      color: 'rgba(3, 252, 240, 0.5)',
       drag: false,
     })
     waveRegion.play()

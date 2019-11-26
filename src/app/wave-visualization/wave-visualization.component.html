@@ -44,7 +44,7 @@
     <section class="clusters timeline" *ngFor="let timeline of timelines">
       <button
         *ngFor="let region of timeline.regions"
-        class="timeline-region"
+        class="cluster"
         [ngStyle]="region.cssStyles"
         [attr.data-start]="region.start"
         [attr.data-end]="region.end"

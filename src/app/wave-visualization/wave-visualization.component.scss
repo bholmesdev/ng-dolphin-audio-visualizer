@@ -25,6 +25,21 @@ section.timeline-scrollbox {
     position: relative;
     min-width: 100%;
 
+    .timeline {
+      height: 50px;
+      margin-bottom: 15px;
+      width: 100%;
+    }
+
+    .annotation > button,
+    .cluster {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
     .annotations.timeline {
       height: 50px;
 
@@ -45,14 +60,7 @@ section.timeline-scrollbox {
           background: #d0e5ff;
           border: 3px solid #10309a;
           font-weight: bold;
-          border-radius: 5px;
-
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
           text-align: left;
-
-          cursor: pointer;
         }
 
         .pointer {
@@ -82,32 +90,22 @@ section.timeline-scrollbox {
       }
     }
 
-    .timeline {
-      height: 50px;
-      margin-bottom: 15px;
-      width: 100%;
-
-      .timeline-region {
+    .clusters.timeline {
+      .cluster {
         position: absolute;
         top: 0;
         left: 0;
         height: 100%;
         padding: 10px 10px;
         border: 2px solid rgba(20, 20, 20, 0.1);
-        border-radius: 5px;
         border-style: inset;
         font-size: 14px;
 
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        z-index: inherit;
-
-        opacity: 0.5;
+        opacity: 0.6;
         transition: opacity 0.3s;
       }
 
-      .timeline-region.highlighted {
+      .cluster.highlighted {
         opacity: 1;
         font-weight: bold;
       }
