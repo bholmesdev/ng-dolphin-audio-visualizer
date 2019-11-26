@@ -137,7 +137,7 @@ export class WaveVisualizationComponent implements OnInit {
     }
 
     const annotationEls: NodeListOf<HTMLElement> = document.querySelectorAll(
-      '.annotations.timeline > annotation'
+      '.annotations.timeline > .annotation'
     )
     const playbackTimeAsPercentage = (playbackTime / audioLength) * 100
     let annotationText = ''
