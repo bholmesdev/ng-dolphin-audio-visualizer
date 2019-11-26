@@ -1,0 +1,39 @@
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(230, 230, 230, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.loading > img {
+  height: 50px;
+  width: 50px;
+  margin: 30px;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.loading > img.anim-delay-1 {
+  animation-delay: 0.333s;
+}
+
+.loading > img.anim-delay-2 {
+  animation-delay: 0.667s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.2);
+  }
+  60% {
+    transform: scale(1);
+  }
+}
