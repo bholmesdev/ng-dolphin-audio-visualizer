@@ -19,10 +19,11 @@
     [style.width.px]="waveformWidth"
     [style.transform]="translateOnScroll"
   >
-    <section class="annotation timeline">
+    <section class="annotations timeline">
       <div
         class="annotation"
         *ngFor="let annotation of exampleAnnotations; let i = index"
+        [attr.data-timestamp]="annotation.percentTime"
         [ngStyle]="
           annotation.leftAlign
             ? { left: annotation.percentTime + '%' }
@@ -50,4 +51,7 @@
       </button>
     </section>
   </div>
+</section>
+<section>
+  <p>{{ currAnnotation }}</p>
 </section>

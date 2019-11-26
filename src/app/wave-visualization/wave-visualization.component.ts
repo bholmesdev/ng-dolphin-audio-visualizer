@@ -24,6 +24,7 @@ export class WaveVisualizationComponent implements OnInit {
   waveformWidth: number = 0
   translateOnScroll: string = ''
   playbackTime: number = 0
+  currAnnotation: string = ''
   exampleAnnotations: any = [
     {
       time: 0,
@@ -94,6 +95,8 @@ export class WaveVisualizationComponent implements OnInit {
         }),
       ],
     })
+    this.waveInstance.setMute(true)
+    this.playbackHandler(0)
 
     this.waveInstance.load(`../assets/${audioFile}`)
     this.zoomWaveform(this.zoomSliderOptions.initialValue)
@@ -102,32 +105,52 @@ export class WaveVisualizationComponent implements OnInit {
       this.translateOnScroll = `translateX(${-event.target.scrollLeft}px)`
     })
 
-    const playbackHandler = playbackTime => {
-      this.zone.run(() => {
-        this.playbackTime = playbackTime.toFixed(2)
-      })
-
-      const regionEls = document.getElementsByClassName('timeline-region')
-      for (const regionEl of Array.from(regionEls)) {
-        const startTime = regionEl.getAttribute('data-start')
-        const endTime = regionEl.getAttribute('data-end')
-        if (startTime <= playbackTime && endTime >= playbackTime) {
-          regionEl.classList.add('highlighted')
-        } else {
-          regionEl.classList.remove('highlighted')
-        }
-      }
-    }
-
     // Update current playback time as audio plays
     this.waveInstance.on('audioprocess', playbackTime =>
-      playbackHandler(playbackTime)
+      this.playbackHandler(playbackTime)
     )
 
     // Update current playback time when user manually moves playhead
     this.waveInstance.on('seek', percentScrubbed =>
-      playbackHandler(percentScrubbed * audioLength)
+      this.playbackHandler(percentScrubbed * audioLength)
     )
+  }
+
+  playbackHandler(playbackTime) {
+    const regionEls = document.getElementsByClassName('timeline-region')
+    for (const regionEl of Array.from(regionEls)) {
+      const startTime = regionEl.getAttribute('data-start')
+      const endTime = regionEl.getAttribute('data-end')
+      if (startTime <= playbackTime && endTime >= playbackTime) {
+        regionEl.classList.add('highlighted')
+      } else {
+        regionEl.classList.remove('highlighted')
+      }
+    }
+
+    const annotationEls = document.getElementsByClassName('annotation')
+    const playbackTimeAsPercentage = (playbackTime / audioLength) * 100
+    let annotationText = ''
+    for (const annotationEl of Array.from(annotationEls).reverse()) {
+      // walk through the annotations back to front
+      // if an annotation starts before the playhead, display that one (since it's the closest to the playhead)
+      try {
+        const annotationTimeAsPercentage = parseInt(
+          annotationEl.getAttribute('data-timestamp')
+        )
+        if (annotationTimeAsPercentage <= playbackTimeAsPercentage) {
+          annotationText = annotationEl.querySelector('button').innerText
+          break
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    }
+
+    this.zone.run(() => {
+      this.currAnnotation = annotationText
+      this.playbackTime = playbackTime.toFixed(2)
+    })
   }
 
   selectAnnotation(percentTime: number) {
