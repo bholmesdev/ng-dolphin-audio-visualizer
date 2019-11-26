@@ -166,22 +166,15 @@ wave::-webkit-scrollbar-thumb {
     margin-right: 10px;
   }
 
-  .zoom-container {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  ng5-slider {
+    max-width: 500px;
+    margin-top: 0;
+  }
 
-    ng5-slider {
-      flex: 1;
-      max-width: 500px;
-      margin-top: 0;
-    }
-
-    .zoom-label {
-      font-weight: bold;
-      margin-right: 20px;
-    }
+  .zoom-label {
+    font-weight: bold;
+    margin-right: 20px;
+    margin-left: auto;
   }
 
   button {
