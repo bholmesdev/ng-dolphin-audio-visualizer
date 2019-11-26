@@ -154,7 +154,6 @@ export class WaveVisualizationComponent implements OnInit {
   }
 
   selectAnnotation(percentTime: number) {
-    console.log(percentTime / 100)
     this.waveInstance.seekTo(percentTime / 100)
   }
 
