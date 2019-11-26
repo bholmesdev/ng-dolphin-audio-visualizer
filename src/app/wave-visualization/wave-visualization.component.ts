@@ -10,6 +10,7 @@ import {
   assignColorsToTimelineRegions,
   formatTimelineIntervals,
   calcWidth,
+  assignPositionsToAnnotations,
 } from './timelineHelpers'
 
 @Component({
@@ -23,6 +24,21 @@ export class WaveVisualizationComponent implements OnInit {
   waveformWidth: number = 0
   translateOnScroll: string = ''
   playbackTime: number = 0
+  exampleAnnotations: any = [
+    {
+      time: 0,
+      description: 'PLAY TAIL CALVES STARTLE',
+    },
+    {
+      time: 4.5,
+      description: 'NEMATOCYST THROAT?',
+    },
+    {
+      time: 9,
+      description:
+        'NEMATOCYST BUBBLES THREE MALE COALITION CALVES FONDUE VERDE NEMATOCYST?',
+    },
+  ]
 
   //ng-5 slider options
   zoomSliderOptions = {
@@ -51,6 +67,11 @@ export class WaveVisualizationComponent implements OnInit {
       )
       this.timelines.push(coloredTimeline)
     })
+
+    this.exampleAnnotations = assignPositionsToAnnotations(
+      this.exampleAnnotations,
+      audioLength
+    )
 
     if (this.waveInstance != null) {
       this.waveInstance.destroy()
@@ -107,6 +128,11 @@ export class WaveVisualizationComponent implements OnInit {
     this.waveInstance.on('seek', percentScrubbed =>
       playbackHandler(percentScrubbed * audioLength)
     )
+  }
+
+  selectAnnotation(percentTime: number) {
+    console.log(percentTime / 100)
+    this.waveInstance.seekTo(percentTime / 100)
   }
 
   togglePlayback() {

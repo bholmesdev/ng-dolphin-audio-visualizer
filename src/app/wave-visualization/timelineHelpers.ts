@@ -67,3 +67,17 @@ export const assignColorsToTimelineRegions = (
     }),
   }
 }
+
+export const assignPositionsToAnnotations = (
+  annotations: any,
+  audioLength: number
+) => {
+  return annotations.map(annotation => {
+    const percentTime = (annotation.time / audioLength) * 100
+    return {
+      ...annotation,
+      percentTime,
+      leftAlign: percentTime < 95,
+    }
+  })
+}

@@ -1,4 +1,3 @@
-<p>wave-visualization works!</p>
 <section class="playback">
   <p class="playback-time">{{ playbackTime }}s</p>
   <button (click)="togglePlayback()">Play / Pause</button>
@@ -20,6 +19,25 @@
     [style.width.px]="waveformWidth"
     [style.transform]="translateOnScroll"
   >
+    <section class="annotation timeline">
+      <div
+        class="annotation"
+        *ngFor="let annotation of exampleAnnotations; let i = index"
+        [ngStyle]="
+          annotation.leftAlign
+            ? { left: annotation.percentTime + '%' }
+            : { right: 100 - annotation.percentTime + '%' }
+        "
+      >
+        <div
+          class="pointer"
+          [ngClass]="annotation.leftAlign ? 'left-align' : 'right-align'"
+        ></div>
+        <button (click)="selectAnnotation(annotation.percentTime)">
+          {{ i + 1 + ': ' + annotation.description }}
+        </button>
+      </div>
+    </section>
     <section class="timeline" *ngFor="let timeline of timelines">
       <button
         *ngFor="let region of timeline.regions"

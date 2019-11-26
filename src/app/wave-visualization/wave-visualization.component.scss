@@ -40,8 +40,7 @@ button {
 section.timeline-scrollbox {
   position: relative;
   margin-top: 30px;
-  overflow-x: scroll;
-  padding-top: 70px;
+  overflow-x: hidden;
 
   h2 {
     position: absolute;
@@ -51,6 +50,62 @@ section.timeline-scrollbox {
   .timeline-container {
     position: relative;
     min-width: 100%;
+
+    .annotation.timeline {
+      height: 50px;
+      position: relative;
+
+      .annotation {
+        position: absolute;
+        width: 44px;
+        transition: width 0.2s;
+        margin-top: 10px;
+        top: 0;
+        height: 40px;
+        left: auto;
+        right: 0;
+
+        button {
+          width: inherit;
+          height: inherit;
+          color: #10309a;
+          background: #d0e5ff;
+          border: 3px solid #10309a;
+          font-weight: bold;
+          border-radius: 5px;
+
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          text-align: left;
+        }
+
+        .pointer {
+          position: absolute;
+          top: -10px;
+          width: 10px;
+          height: 13px;
+          z-index: 5;
+        }
+
+        .pointer.left-align {
+          left: 0;
+          background: linear-gradient(45deg, #10309a 50%, rgba(0, 0, 0, 0) 50%);
+        }
+        .pointer.right-align {
+          right: 0;
+          background: linear-gradient(
+            -45deg,
+            #10309a 50%,
+            rgba(0, 0, 0, 0) 50%
+          );
+        }
+      }
+
+      .annotation:hover {
+        width: 300px;
+      }
+    }
 
     .timeline {
       position: relative;
@@ -64,8 +119,8 @@ section.timeline-scrollbox {
         left: 0;
         height: 100%;
         padding: 10px 10px;
-        border-radius: 5px;
         border: 2px solid rgba(20, 20, 20, 0.1);
+        border-radius: 5px;
         border-style: inset;
         font-size: 14px;
 
