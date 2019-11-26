@@ -41,13 +41,14 @@
         </button>
       </div>
     </section>
-    <section class="timeline" *ngFor="let timeline of timelines">
+    <section class="clusters timeline" *ngFor="let timeline of timelines">
       <button
         *ngFor="let region of timeline.regions"
         class="timeline-region"
         [ngStyle]="region.cssStyles"
         [attr.data-start]="region.start"
         [attr.data-end]="region.end"
+        (click)="selectCluster(region.start, region.end)"
       >
         {{ region.label }}
       </button>

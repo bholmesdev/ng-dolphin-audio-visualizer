@@ -163,6 +163,17 @@ export class WaveVisualizationComponent implements OnInit {
     this.waveInstance.seekTo(percentTime / 100)
   }
 
+  selectCluster(startTime, endTime) {
+    this.waveInstance.clearRegions()
+    const waveRegion = this.waveInstance.addRegion({
+      start: startTime,
+      end: endTime,
+      color: 'cyan',
+      drag: false,
+    })
+    waveRegion.play()
+  }
+
   togglePlayback() {
     if (this.waveInstance.isPlaying()) {
       this.waveInstance.pause()
