@@ -14,7 +14,7 @@ section {
 
 section.timeline-scrollbox {
   margin-top: 10px;
-  overflow-x: hidden;
+  //overflow-x: hidden;
 
   h2 {
     position: absolute;
@@ -69,6 +69,12 @@ section.timeline-scrollbox {
           width: 10px;
           height: 13px;
           z-index: 5;
+          margin-top: 10px;
+        }
+
+        .pointer_button {
+          position: absolute;
+          margin-top: 10px;
         }
 
         .pointer.left-align {
@@ -100,6 +106,8 @@ section.timeline-scrollbox {
         border: 2px solid rgba(20, 20, 20, 0.1);
         border-style: inset;
         font-size: 14px;
+        margin-top: 16.5px;
+        margin-bottom: 20px;
 
         opacity: 0.6;
         transition: opacity 0.3s;

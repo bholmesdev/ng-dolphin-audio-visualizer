@@ -2,7 +2,7 @@ export const audioFile = 'dolphin-audio.wav'
 export const audioLength = 9.024
 export const timelines = [
   {
-    name: 'manual',
+    name: 'Model 1',
     regions: [
       {
         start: 0,
@@ -32,7 +32,7 @@ export const timelines = [
     ],
   },
   {
-    name: 'model-1',
+    name: 'Model 2',
     regions: [
       {
         start: 0.4,
@@ -68,36 +68,6 @@ export const timelines = [
         start: 7.5,
         end: 9,
         label: 'B',
-      },
-    ],
-  },
-  {
-    name: 'model-2',
-    regions: [
-      {
-        start: 0,
-        end: 2.5,
-        label: 'J',
-      },
-      {
-        start: 3,
-        end: 3.5,
-        label: 'A',
-      },
-      {
-        start: 4,
-        end: 4.1,
-        label: 'JJ',
-      },
-      {
-        start: 4.2,
-        end: 6.2,
-        label: 'A',
-      },
-      {
-        start: 8,
-        end: 8.5,
-        label: 'BB',
       },
     ],
   },
