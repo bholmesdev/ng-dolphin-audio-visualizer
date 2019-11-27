@@ -20,6 +20,15 @@ section.timeline-scrollbox {
     position: absolute;
     top: 0;
   }
+  h3 {
+    position: fixed;
+    overflow: auto;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    white-space: nowrap;
+    y:fixed
+  }
+
 
   .timeline-container {
     position: relative;
@@ -75,6 +84,7 @@ section.timeline-scrollbox {
         .pointer_button {
           position: absolute;
           margin-top: 10px;
+          width: 500%;
         }
 
         .pointer.left-align {
@@ -92,7 +102,7 @@ section.timeline-scrollbox {
       }
 
       .annotation:hover {
-        width: 300px;
+        width: 100px;
       }
     }
 
@@ -116,6 +126,7 @@ section.timeline-scrollbox {
       .cluster.highlighted {
         opacity: 1;
         font-weight: bold;
+
       }
     }
   }
@@ -158,5 +169,8 @@ section.timeline-scrollbox {
     color: white;
     padding: 8px 15px;
     border-radius: 5px;
+  }
+  .button:hover {
+    width: 100px;
   }
 }
