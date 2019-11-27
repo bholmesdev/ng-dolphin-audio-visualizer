@@ -22,7 +22,6 @@
     [style.transform]="translateOnScroll"
   >
     <section class="annotations timeline">
-      <label>Manual Annotations</label>
       <div
         class="annotation"
         *ngFor="let annotation of exampleAnnotations; let i = index"
@@ -38,13 +37,16 @@
           [ngClass]="annotation.leftAlign ? 'left-align' : 'right-align'"
         ></div>
 
-        <button class="pointer_button" (click)="selectAnnotation(annotation.percentTime)">
+        <button
+          class="pointer_button"
+          (click)="selectAnnotation(annotation.percentTime)"
+        >
           {{ i + 1 + ': ' + annotation.description }}
         </button>
       </div>
     </section>
     <section class="clusters timeline" *ngFor="let timeline of timelines">
-      <label>{{ timeline.name }}</label>
+      <h3>{{ timeline.name }}</h3>
       <button
         *ngFor="let region of timeline.regions"
         class="cluster"
