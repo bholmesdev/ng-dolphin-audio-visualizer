@@ -1,5 +1,4 @@
 import { Component, OnInit, NgZone } from '@angular/core'
-import { TooltipModule } from 'ng2-tooltip-directive';
 import WaveSurfer from 'wavesurfer.js'
 import SpectrogramPlugin from 'wavesurfer.js/src/plugin/spectrogram'
 import RegionPlugin from 'wavesurfer.js/src/plugin/regions'

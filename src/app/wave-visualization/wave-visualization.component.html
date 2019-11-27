@@ -47,7 +47,7 @@
     </section>
     <section class="clusters timeline" *ngFor="let timeline of timelines">
       <h3>{{ timeline.name }}</h3>
-      <button
+      <button tooltip={{region.label}}
         *ngFor="let region of timeline.regions"
         class="cluster"
         [ngStyle]="region.cssStyles"
@@ -67,5 +67,5 @@
     <!-- <h2>Full annotation</h2> -->
     <!-- <p>{{ currAnnotation }}</p> -->
   </div>
-  
+
 </section>
