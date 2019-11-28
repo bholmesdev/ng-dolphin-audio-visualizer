@@ -24,7 +24,7 @@
     <section class="annotations timeline">
       <div
         class="annotation"
-        *ngFor="let annotation of exampleAnnotations; let i = index"
+        *ngFor="let annotation of exampleAnnotations"
         [attr.data-timestamp]="annotation.percentTime"
         [ngStyle]="
           annotation.leftAlign
@@ -33,30 +33,30 @@
         "
       >
         <div
-          class="pointer"
+          class="triangle-icon"
           [ngClass]="annotation.leftAlign ? 'left-align' : 'right-align'"
         ></div>
 
         <button
-          class="pointer_button"
+          class="annotation-content"
           (click)="selectAnnotation(annotation.percentTime)"
         >
-          {{ i + 1 + ': ' + annotation.description }}
+          {{ annotation.description }}
+          <span class="annotation-cta">Start playback here</span>
         </button>
       </div>
     </section>
     <section class="clusters timeline" *ngFor="let timeline of timelines">
       <h3>{{ timeline.name }}</h3>
-      <button tooltip={{region.label}}
+      <button
+        tooltip="{{ region.label }}"
         *ngFor="let region of timeline.regions"
         class="cluster"
         [ngStyle]="region.cssStyles"
         [attr.data-start]="region.start"
         [attr.data-end]="region.end"
         (click)="selectCluster(region.start, region.end)"
-
       >
-
         {{ region.label }}
       </button>
     </section>
@@ -67,5 +67,4 @@
     <!-- <h2>Full annotation</h2> -->
     <!-- <p>{{ currAnnotation }}</p> -->
   </div>
-
 </section>
