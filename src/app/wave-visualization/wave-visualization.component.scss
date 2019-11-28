@@ -2,6 +2,12 @@
   font-family: sans-serif;
 }
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 button {
   font-size: 14px;
   border: none;
@@ -14,107 +20,106 @@ section {
 
 section.timeline-scrollbox {
   overflow-x: hidden;
+  flex: 1;
 
-  h2 {
+  .background-container {
     position: absolute;
     top: 0;
-  }
-  h3 {
-    position: fixed;
-    white-space: nowrap;
-  }
-
-  .timeline-container {
-    position: relative;
+    left: 0;
+    width: 100%;
+    height: 100%;
     min-width: 100%;
-    padding-top: 10px;
     // for showing timeline tallies (draws a gray line at each second mark)
-    background: linear-gradient(90deg, grey 1px, transparent 1px);
+    background: linear-gradient(90deg, #ccc 2px, transparent 2px);
+  }
 
-    .timeline {
-      height: 60px;
-      margin-bottom: 40px;
-      width: 100%;
-    }
+  .timeline {
+    height: 60px;
+    margin-bottom: 40px;
+    min-width: 100%;
+  }
 
-    .annotation > button,
-    .cluster {
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      cursor: pointer;
-      border-radius: 5px;
-    }
+  .annotation > button,
+  .cluster {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 5px;
+  }
 
-    .annotations.timeline {
-      height: 50px;
+  .annotations.timeline {
+    height: 50px;
 
-      .annotation {
+    .annotation {
+      position: absolute;
+      width: 44px;
+      transition: width 0.2s;
+      margin-top: 10px;
+      top: 0;
+      height: 40px;
+      left: auto;
+      right: 0;
+
+      button {
+        width: inherit;
+        height: inherit;
+        color: #10309a;
+        background: #d0e5ff;
+        border: 3px solid #10309a;
+        font-weight: bold;
+        text-align: left;
+      }
+
+      .pointer {
         position: absolute;
-        width: 44px;
-        transition: width 0.2s;
+        top: -10px;
+        width: 10px;
+        height: 13px;
+        z-index: 5;
         margin-top: 10px;
-        top: 0;
-        height: 40px;
-        left: auto;
-        right: 0;
-
-        button {
-          width: inherit;
-          height: inherit;
-          color: #10309a;
-          background: #d0e5ff;
-          border: 3px solid #10309a;
-          font-weight: bold;
-          text-align: left;
-        }
-
-        .pointer {
-          position: absolute;
-          top: -10px;
-          width: 10px;
-          height: 13px;
-          z-index: 5;
-          margin-top: 10px;
-        }
-
-        .pointer_button {
-          position: absolute;
-          margin-top: 10px;
-          width: 500%;
-        }
-
-        .pointer.left-align {
-          left: 0;
-          background: linear-gradient(45deg, #10309a 50%, rgba(0, 0, 0, 0) 50%);
-        }
-        .pointer.right-align {
-          right: 0;
-          background: linear-gradient(
-            -45deg,
-            #10309a 50%,
-            rgba(0, 0, 0, 0) 50%
-          );
-        }
       }
 
-      .annotation:hover {
-        width: 100px;
+      .pointer_button {
+        position: absolute;
+        margin-top: 10px;
+        width: 500%;
+      }
+
+      .pointer.left-align {
+        left: 0;
+        background: linear-gradient(45deg, #10309a 50%, rgba(0, 0, 0, 0) 50%);
+      }
+      .pointer.right-align {
+        right: 0;
+        background: linear-gradient(-45deg, #10309a 50%, rgba(0, 0, 0, 0) 50%);
       }
     }
 
-    .clusters.timeline {
+    .annotation:hover {
+      width: 100px;
+    }
+  }
+
+  .clusters.timeline {
+    h2 {
+      background: #eee;
+      margin-bottom: 0;
+    }
+    .timeline-container {
+      height: 50px;
+      min-width: 100%;
+      transform: translateX(0);
+
       .cluster {
         position: absolute;
         top: 0;
         left: 0;
-        height: 100%;
+        bottom: 0;
         padding: 10px 10px;
         border: 2px solid rgba(20, 20, 20, 0.1);
         border-style: inset;
         font-size: 14px;
-        margin-top: 16.5px;
-        margin-bottom: 50px;
 
         opacity: 0.6;
         transition: opacity 0.3s;
