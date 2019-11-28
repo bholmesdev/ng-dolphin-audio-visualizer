@@ -24,7 +24,7 @@ export class WaveVisualizationComponent implements OnInit {
   waveformWidth: number = 0
   translateOnScroll: string = ''
   playbackTime: number = 0
-  currAnnotation: string = ''
+  audioLength: number = 0
   loading: boolean
   zooming: boolean
   exampleAnnotations: any = [
@@ -62,6 +62,7 @@ export class WaveVisualizationComponent implements OnInit {
     this.loading = true
     this.zooming = false
     this.timelines = []
+    this.audioLength = audioLength
   }
 
   ngOnInit() {
@@ -123,7 +124,6 @@ export class WaveVisualizationComponent implements OnInit {
   }
 
   playbackHandler(playbackTime) {
-
     let annotationText = ''
 
     const annotationEls: NodeListOf<HTMLElement> = document.querySelectorAll(
@@ -214,5 +214,4 @@ export class WaveVisualizationComponent implements OnInit {
   onSliderZoom($event: ChangeContext) {
     this.zoomWaveform($event.value)
   }
-
 }

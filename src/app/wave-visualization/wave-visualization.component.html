@@ -20,6 +20,7 @@
     class="timeline-container"
     [style.width.px]="waveformWidth"
     [style.transform]="translateOnScroll"
+    [style.background-size.%]="(1 / audioLength) * 100"
   >
     <section class="annotations timeline">
       <div
@@ -47,16 +48,15 @@
     </section>
     <section class="clusters timeline" *ngFor="let timeline of timelines">
       <h3>{{ timeline.name }}</h3>
-      <button tooltip={{region.label}}
+      <button
+        tooltip="{{ region.label }}"
         *ngFor="let region of timeline.regions"
         class="cluster"
         [ngStyle]="region.cssStyles"
         [attr.data-start]="region.start"
         [attr.data-end]="region.end"
         (click)="selectCluster(region.start, region.end)"
-
       >
-
         {{ region.label }}
       </button>
     </section>
@@ -67,5 +67,4 @@
     <!-- <h2>Full annotation</h2> -->
     <!-- <p>{{ currAnnotation }}</p> -->
   </div>
-
 </section>

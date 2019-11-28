@@ -13,8 +13,7 @@ section {
 }
 
 section.timeline-scrollbox {
-  margin-top: 10px;
-  //overflow-x: hidden;
+  overflow-x: hidden;
 
   h2 {
     position: absolute;
@@ -25,10 +24,12 @@ section.timeline-scrollbox {
     white-space: nowrap;
   }
 
-
   .timeline-container {
     position: relative;
     min-width: 100%;
+    padding-top: 10px;
+    // for showing timeline tallies (draws a gray line at each second mark)
+    background: linear-gradient(90deg, grey 1px, transparent 1px);
 
     .timeline {
       height: 60px;
@@ -122,7 +123,6 @@ section.timeline-scrollbox {
       .cluster.highlighted {
         opacity: 1;
         font-weight: bold;
-
       }
     }
   }
