@@ -67,6 +67,7 @@ section.timeline-scrollbox {
     height: 50px;
     margin: 25px;
     margin-top: 10px;
+    z-index: 2;
 
     .annotation {
       position: absolute;
