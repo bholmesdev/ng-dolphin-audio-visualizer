@@ -22,6 +22,7 @@ export class WaveVisualizationComponent implements OnInit {
   waveInstance: WaveSurfer
   timelines: Array<TimelineModel> = []
   waveformWidth: number = 0
+  minWaveformWidth: number = 0
   translateOnScroll: string = ''
   playbackTime: number = 0
   audioLength: number = 0
@@ -46,7 +47,7 @@ export class WaveVisualizationComponent implements OnInit {
 
   //ng-5 slider options
   zoomSliderOptions = {
-    initialValue: 5,
+    initialValue: 1,
     options: {
       floor: 1,
       ceil: 8,
@@ -64,7 +65,20 @@ export class WaveVisualizationComponent implements OnInit {
     this.zooming = false
     this.waitingOnScrollAnimFrame = false
     this.timelines = []
+    this.waveformWidth = calcWidth(1, audioLength)
     this.audioLength = audioLength
+    timelines.forEach((timeline: TimelineModel) => {
+      const coloredTimeline = assignColorsToTimelineRegions(
+        timeline,
+        audioLength
+      )
+      this.timelines.push(coloredTimeline)
+    })
+
+    this.exampleAnnotations = assignPositionsToAnnotations(
+      this.exampleAnnotations,
+      audioLength
+    )
   }
 
   ngOnInit() {
@@ -91,7 +105,6 @@ export class WaveVisualizationComponent implements OnInit {
     })
     this.waveInstance.setCursorColor('red')
     this.waveInstance.load(`../assets/${audioFile}`)
-    this.zoomWaveform(this.zoomSliderOptions.initialValue)
 
     this.waveInstance.on('scroll', event => {
       if (!this.waitingOnScrollAnimFrame) {
@@ -115,21 +128,13 @@ export class WaveVisualizationComponent implements OnInit {
     )
 
     this.waveInstance.on('ready', () => {
-      this.loading = false
       this.playbackHandler(0)
-
-      timelines.forEach((timeline: TimelineModel) => {
-        const coloredTimeline = assignColorsToTimelineRegions(
-          timeline,
-          audioLength
-        )
-        this.timelines.push(coloredTimeline)
+      this.minWaveformWidth = this.waveInstance.container.offsetWidth
+      this.zone.run(() => {
+        this.loading = false
+        this.waveformWidth = this.minWaveformWidth
       })
-
-      this.exampleAnnotations = assignPositionsToAnnotations(
-        this.exampleAnnotations,
-        audioLength
-      )
+      console.log(this.waveInstance.container.offsetWidth)
     })
   }
 
@@ -181,12 +186,13 @@ export class WaveVisualizationComponent implements OnInit {
     const spectrogramScaleFactor = 2
     const zoomedWidth = calcWidth(zoomValue, audioLength)
     this.zooming = true
+    console.log(this.waveInstance.spectrogram)
     this.waveInstance.spectrogram.width = Math.max(
-      screen.width,
+      this.minWaveformWidth,
       zoomedWidth * spectrogramScaleFactor
     )
     this.waveInstance.on('zoom', () => {
-      this.waveformWidth = zoomedWidth
+      this.waveformWidth = Math.max(this.minWaveformWidth, zoomedWidth)
       this.zooming = false
     })
     setTimeout(() => {

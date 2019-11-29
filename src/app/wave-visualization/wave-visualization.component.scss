@@ -93,7 +93,7 @@ section.timeline-scrollbox {
 
   .annotations.timeline {
     height: 50px;
-    margin: 25px;
+    margin-left: 25px;
     margin-top: 10px;
     z-index: 2;
 
@@ -176,7 +176,6 @@ section.timeline-scrollbox {
     .timeline-container {
       border-radius: 5px;
       margin-bottom: 15px;
-      min-width: 100%;
       transform: translateX(0);
       background: #f8f8fa;
       flex: 1;
