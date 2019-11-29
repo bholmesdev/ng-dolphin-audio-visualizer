@@ -39,15 +39,15 @@ section.timeline-scrollbox {
   .background-container {
     position: absolute;
     border-radius: inherit;
-    bottom: 0;
+    bottom: 1px;
     left: 0;
     width: 100%;
-    height: 10%;
+    height: 3px;
     z-index: 2;
     // for showing timeline tallies (draws a gray line at each second mark)
     background: linear-gradient(
       270deg,
-      rgba(0, 0, 0, 0.3) 2px,
+      rgba(0, 0, 0, 0.3) 3px,
       transparent 2px
     );
   }
@@ -132,14 +132,10 @@ section.timeline-scrollbox {
     }
   }
 
-  .annotation:hover {
-    width: 100px;
-  }
-
   .clusters.timeline {
     border: 10px solid white;
     box-sizing: border-box;
-    height: 110px;
+    height: 120px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
