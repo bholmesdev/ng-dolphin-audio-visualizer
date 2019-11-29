@@ -68,19 +68,6 @@ export class WaveVisualizationComponent implements OnInit {
   }
 
   ngOnInit() {
-    timelines.forEach((timeline: TimelineModel) => {
-      const coloredTimeline = assignColorsToTimelineRegions(
-        timeline,
-        audioLength
-      )
-      this.timelines.push(coloredTimeline)
-    })
-
-    this.exampleAnnotations = assignPositionsToAnnotations(
-      this.exampleAnnotations,
-      audioLength
-    )
-
     if (this.waveInstance != null) {
       this.waveInstance.destroy()
     }
@@ -130,6 +117,19 @@ export class WaveVisualizationComponent implements OnInit {
     this.waveInstance.on('ready', () => {
       this.loading = false
       this.playbackHandler(0)
+
+      timelines.forEach((timeline: TimelineModel) => {
+        const coloredTimeline = assignColorsToTimelineRegions(
+          timeline,
+          audioLength
+        )
+        this.timelines.push(coloredTimeline)
+      })
+
+      this.exampleAnnotations = assignPositionsToAnnotations(
+        this.exampleAnnotations,
+        audioLength
+      )
     })
   }
 
