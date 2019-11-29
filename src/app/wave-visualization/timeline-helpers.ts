@@ -57,6 +57,7 @@ export const assignColorsToTimelineRegions = (
         ...region,
         percentWidth,
         percentStart,
+        showTooltip: percentWidth < 6,
         color: colorMap.get(region.label),
       }
     }),

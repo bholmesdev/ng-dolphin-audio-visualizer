@@ -27,6 +27,7 @@ export class WaveVisualizationComponent implements OnInit {
   audioLength: number = 0
   loading: boolean
   zooming: boolean
+  waitingOnScrollAnimFrame: boolean
   exampleAnnotations: any = [
     {
       time: 0,
@@ -61,6 +62,7 @@ export class WaveVisualizationComponent implements OnInit {
   constructor(public zone: NgZone) {
     this.loading = true
     this.zooming = false
+    this.waitingOnScrollAnimFrame = false
     this.timelines = []
     this.audioLength = audioLength
   }
@@ -104,7 +106,14 @@ export class WaveVisualizationComponent implements OnInit {
     this.zoomWaveform(this.zoomSliderOptions.initialValue)
 
     this.waveInstance.on('scroll', event => {
-      this.translateOnScroll = `translateX(${-event.target.scrollLeft}px)`
+      if (!this.waitingOnScrollAnimFrame) {
+        requestAnimationFrame(() => {
+          this.translateOnScroll = `translateX(${-event.target.scrollLeft}px)`
+          this.waitingOnScrollAnimFrame = false
+        })
+
+        this.waitingOnScrollAnimFrame = true
+      }
     })
 
     // Update current playback time as audio plays
@@ -184,8 +193,6 @@ export class WaveVisualizationComponent implements OnInit {
   }
 
   togglePlayback() {
-    console.log('play')
-    this.waveInstance.play()
     if (this.waveInstance.isPlaying()) {
       this.waveInstance.pause()
     } else {

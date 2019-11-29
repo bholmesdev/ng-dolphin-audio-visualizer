@@ -10,7 +10,7 @@
     >
     </ng5-slider>
   </section>
-  <section>
+  <section class="wave-container">
     <loading-overlay [loading]="loading || zooming"></loading-overlay>
     <div id="spectrogram"></div>
     <div id="waveform"></div>
@@ -54,14 +54,10 @@
         [style.transform]="translateOnScroll"
         [style.width.px]="waveformWidth"
       >
-        <div
-          class="background-container"
-          [style.background-size.%]="(1 / audioLength) * 100"
-        ></div>
         <button
-          tooltip="{{ region.label }}"
           *ngFor="let region of timeline.regions"
           class="cluster"
+          [tooltip]="region.label"
           [style.width.%]="region.percentWidth"
           [style.left.%]="region.percentStart"
           [style.background]="region.color"
@@ -71,6 +67,10 @@
         >
           {{ region.label }}
         </button>
+        <div
+          class="background-container"
+          [style.background-size.%]="(1 / audioLength) * 50"
+        ></div>
       </div>
     </section>
   </section>

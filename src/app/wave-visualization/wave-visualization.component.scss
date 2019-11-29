@@ -6,8 +6,12 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 10px;
   background: #f8f8fa;
+}
+
+.wave-container {
+  margin: 0 15px;
+  background: white;
 }
 
 button {
@@ -27,24 +31,28 @@ section.timeline-scrollbox {
   .background-container {
     position: absolute;
     border-radius: inherit;
-    top: 0;
+    bottom: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 10%;
+    z-index: 2;
     // for showing timeline tallies (draws a gray line at each second mark)
-    background: linear-gradient(90deg, #ccc 2px, transparent 2px);
+    background: linear-gradient(
+      270deg,
+      rgba(0, 0, 0, 0.3) 2px,
+      transparent 2px
+    );
   }
 
   .timeline {
     height: 60px;
-    margin-bottom: 40px;
-    min-width: 100%;
+    margin: 15px;
+    margin-bottom: 30px;
   }
 
   .annotation > button,
   .cluster {
     white-space: nowrap;
-    text-overflow: ellipsis;
     overflow: hidden;
     cursor: pointer;
   }
@@ -106,9 +114,10 @@ section.timeline-scrollbox {
   .clusters.timeline {
     background: white;
     box-shadow: rgba(51, 46, 84, 0.15) 0px 1px 5px;
-    border: 1px solid rgb(237, 237, 240);
+    border: 5px solid white;
     border-radius: 10px;
-    height: 100px;
+    box-sizing: border-box;
+    height: 110px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -119,33 +128,51 @@ section.timeline-scrollbox {
       font-size: 18px;
     }
     .timeline-container {
-      margin: 5px;
-      padding: 5px;
+      border-radius: 5px;
+      margin-bottom: 15px;
       min-width: 100%;
       transform: translateX(0);
       background: #f8f8fa;
       flex: 1;
       box-shadow: inset rgba(51, 46, 84, 0.15) 0 0 10px;
-      border-radius: 8px;
 
       .cluster {
         background: white;
         position: absolute;
-        border-radius: 10px;
+        border-radius: 5px;
         top: 0;
         left: 0;
         bottom: 0;
         height: 100%;
         padding: 10px 10px;
         font-size: 14px;
+        border: 1px solid rgb(237, 237, 240);
 
-        opacity: 0.6;
-        transition: opacity 0.3s;
+        transition-property: transform, box-shadow;
+        transition-duration: 0.3s;
+      }
+
+      .cluster::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 150px;
+        background: linear-gradient(30deg, rgba(0, 0, 0, 0.2), transparent 60%);
+        transition: transform 0.4s;
       }
 
       .cluster.highlighted {
         opacity: 1;
         font-weight: bold;
+        transform: scaleY(1.1);
+        border: none;
+        box-shadow: rgba(51, 46, 84, 0.3) 0 0 10px;
+        z-index: 1;
+      }
+      .cluster.highlighted::before {
+        transform: translateY(-80px);
       }
     }
   }
