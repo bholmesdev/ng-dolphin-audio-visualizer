@@ -10,7 +10,7 @@
     >
     </ng5-slider>
   </section>
-  <section class="wave-container">
+  <section class="wave-container card-bg">
     <loading-overlay [loading]="loading || zooming"></loading-overlay>
     <div id="spectrogram"></div>
     <div id="waveform"></div>
@@ -46,7 +46,10 @@
         </button>
       </div>
     </section>
-    <section class="clusters timeline" *ngFor="let timeline of timelines">
+    <section
+      class="clusters timeline card-bg"
+      *ngFor="let timeline of timelines"
+    >
       <h2>
         {{ 'Learning algorithm: ' + timeline.name }}
       </h2>

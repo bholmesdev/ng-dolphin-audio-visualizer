@@ -1,3 +1,5 @@
+$card-box-shadow: rgba(51, 46, 84, 0.15) 0px 1px 5px;
+
 * {
   font-family: sans-serif;
 }
@@ -9,9 +11,15 @@
   background: #f8f8fa;
 }
 
-.wave-container {
+.card-bg {
   margin: 0 15px;
   background: white;
+  box-shadow: $card-box-shadow;
+  border-radius: 10px;
+}
+
+.wave-container {
+  padding: 10px;
 }
 
 button {
@@ -45,8 +53,6 @@ section.timeline-scrollbox {
   }
 
   .timeline {
-    height: 60px;
-    margin: 15px;
     margin-bottom: 30px;
   }
 
@@ -59,6 +65,7 @@ section.timeline-scrollbox {
 
   .annotations.timeline {
     height: 50px;
+    margin: 25px;
     margin-top: 10px;
 
     .annotation {
@@ -129,10 +136,7 @@ section.timeline-scrollbox {
   }
 
   .clusters.timeline {
-    background: white;
-    box-shadow: rgba(51, 46, 84, 0.15) 0px 1px 5px;
-    border: 5px solid white;
-    border-radius: 10px;
+    border: 10px solid white;
     box-sizing: border-box;
     height: 110px;
     display: flex;
