@@ -123,30 +123,6 @@ export class WaveVisualizationComponent implements OnInit {
   }
 
   playbackHandler(playbackTime) {
-    let annotationText = ''
-
-    const annotationEls: NodeListOf<HTMLElement> = document.querySelectorAll(
-      '.annotations.timeline > .annotation'
-    )
-    const playbackTimeAsPercentage = (playbackTime / audioLength) * 100
-
-    for (const annotationEl of Array.from(annotationEls).reverse()) {
-      // walk through the annotations back to front
-      // if an annotation starts before the playhead, display that one (since it's the closest to the playhead)
-      try {
-        const annotationTimeAsPercentage = parseInt(
-          annotationEl.getAttribute('data-timestamp')
-        )
-        if (annotationTimeAsPercentage <= playbackTimeAsPercentage) {
-          annotationText += annotationEl.querySelector('button').innerText
-          annotationText += '\n'
-          break
-        }
-      } catch (e) {
-        console.error(e)
-      }
-    }
-
     const regionEls: NodeListOf<HTMLElement> = document.querySelectorAll(
       '.clusters.timeline > .cluster'
     )
@@ -156,15 +132,12 @@ export class WaveVisualizationComponent implements OnInit {
       const endTime = regionEl.getAttribute('data-end')
       if (startTime <= playbackTime && endTime >= playbackTime) {
         regionEl.classList.add('highlighted')
-        annotationText += regionEl.innerText
-        annotationText += '\n'
       } else {
         regionEl.classList.remove('highlighted')
       }
     }
 
     this.zone.run(() => {
-      this.currAnnotation = annotationText
       this.playbackTime = playbackTime.toFixed(2)
     })
   }
