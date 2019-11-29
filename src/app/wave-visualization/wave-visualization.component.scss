@@ -50,6 +50,11 @@ $card-box-shadow: rgba(51, 46, 84, 0.15) 0px 1px 5px;
   }
 }
 
+:host ::ng-deep #spectrogram canvas:nth-child(2) {
+  min-width: 100%;
+  max-height: 128px !important;
+}
+
 button {
   font-size: 14px;
   border: none;
