@@ -6,6 +6,8 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  padding: 10px;
+  background: #f8f8fa;
 }
 
 button {
@@ -24,11 +26,11 @@ section.timeline-scrollbox {
 
   .background-container {
     position: absolute;
+    border-radius: inherit;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    min-width: 100%;
     // for showing timeline tallies (draws a gray line at each second mark)
     background: linear-gradient(90deg, #ccc 2px, transparent 2px);
   }
@@ -45,7 +47,6 @@ section.timeline-scrollbox {
     text-overflow: ellipsis;
     overflow: hidden;
     cursor: pointer;
-    border-radius: 5px;
   }
 
   .annotations.timeline {
@@ -69,6 +70,7 @@ section.timeline-scrollbox {
         border: 3px solid #10309a;
         font-weight: bold;
         text-align: left;
+        border-radius: 5px;
       }
 
       .pointer {
@@ -102,23 +104,39 @@ section.timeline-scrollbox {
   }
 
   .clusters.timeline {
+    background: white;
+    box-shadow: rgba(51, 46, 84, 0.15) 0px 1px 5px;
+    border: 1px solid rgb(237, 237, 240);
+    border-radius: 10px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
     h2 {
-      background: #eee;
-      margin-bottom: 0;
+      margin: 0;
+      padding: 10px 15px;
+      font-size: 18px;
     }
     .timeline-container {
-      height: 50px;
+      margin: 5px;
+      padding: 5px;
       min-width: 100%;
       transform: translateX(0);
+      background: #f8f8fa;
+      flex: 1;
+      box-shadow: inset rgba(51, 46, 84, 0.15) 0 0 10px;
+      border-radius: 8px;
 
       .cluster {
+        background: white;
         position: absolute;
+        border-radius: 10px;
         top: 0;
         left: 0;
         bottom: 0;
+        height: 100%;
         padding: 10px 10px;
-        border: 2px solid rgba(20, 20, 20, 0.1);
-        border-style: inset;
         font-size: 14px;
 
         opacity: 0.6;

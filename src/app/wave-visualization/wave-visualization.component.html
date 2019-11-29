@@ -17,12 +17,6 @@
     <div id="wave-timeline"></div>
   </section>
   <section class="timeline-scrollbox">
-    <div
-      class="background-container"
-      [style.background-size.%]="(1 / audioLength) * 100"
-      [style.transform]="translateOnScroll"
-      [style.width.px]="waveformWidth"
-    ></div>
     <section
       class="annotations timeline"
       [style.transform]="translateOnScroll"
@@ -53,18 +47,24 @@
     </section>
     <section class="clusters timeline" *ngFor="let timeline of timelines">
       <h2>
-        {{ timeline.name }}
+        {{ 'Learning algorithm: ' + timeline.name }}
       </h2>
       <div
         class="timeline-container"
         [style.transform]="translateOnScroll"
         [style.width.px]="waveformWidth"
       >
+        <div
+          class="background-container"
+          [style.background-size.%]="(1 / audioLength) * 100"
+        ></div>
         <button
           tooltip="{{ region.label }}"
           *ngFor="let region of timeline.regions"
           class="cluster"
-          [ngStyle]="region.cssStyles"
+          [style.width.%]="region.percentWidth"
+          [style.left.%]="region.percentStart"
+          [style.background]="region.color"
           [attr.data-start]="region.start"
           [attr.data-end]="region.end"
           (click)="selectCluster(region.start, region.end)"

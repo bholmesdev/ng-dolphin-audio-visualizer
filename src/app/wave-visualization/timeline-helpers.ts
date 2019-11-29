@@ -1,14 +1,13 @@
 import { TimelineModel } from './timeline-model'
 
-const getRandomColor = () =>
-  'rgba(' +
-  [
-    ~~(Math.random() * 255),
-    ~~(Math.random() * 255),
-    ~~(Math.random() * 255),
-    0.5,
-  ] +
-  ')'
+const getRandomColor = () => {
+  const letters = 'BCDEF'.split('')
+  let color = '#'
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * letters.length)]
+  }
+  return color
+}
 
 export const calcWidth = (zoomValue, audioLength) =>
   10 * zoomValue * zoomValue * audioLength
@@ -54,15 +53,11 @@ export const assignColorsToTimelineRegions = (
       const percentEnd = (region.end / audioLength) * 100
       const percentWidth = percentEnd - percentStart
 
-      const cssStyles = {
-        width: percentWidth + '%',
-        left: percentStart + '%',
-        'background-color': colorMap.get(region.label),
-      }
-
       return {
         ...region,
-        cssStyles,
+        percentWidth,
+        percentStart,
+        color: colorMap.get(region.label),
       }
     }),
   }
