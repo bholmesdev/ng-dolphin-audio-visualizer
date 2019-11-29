@@ -50,7 +50,7 @@ section.timeline-scrollbox {
     margin-bottom: 30px;
   }
 
-  .annotation > button,
+  .annotation-content,
   .cluster {
     white-space: nowrap;
     overflow: hidden;
@@ -59,56 +59,73 @@ section.timeline-scrollbox {
 
   .annotations.timeline {
     height: 50px;
+    margin-top: 10px;
 
     .annotation {
       position: absolute;
-      width: 44px;
+      width: 200px;
       transition: width 0.2s;
-      margin-top: 10px;
       top: 0;
-      height: 40px;
       left: auto;
       right: 0;
+      transition-property: transform;
+      transition-duration: 0.2s;
 
-      button {
+      .annotation-content {
         width: inherit;
-        height: inherit;
         color: #10309a;
-        background: #d0e5ff;
+        background: #dfeeff;
         border: 3px solid #10309a;
-        font-weight: bold;
         text-align: left;
+        transition-property: box-shadow;
+        transition-duration: inherit;
         border-radius: 5px;
+        padding: 10px;
+        text-overflow: ellipsis;
+
+        .annotation-cta {
+          display: none;
+          font-weight: bold;
+          text-align: center;
+          margin-top: 10px;
+        }
       }
 
-      .pointer {
-        position: absolute;
-        top: -10px;
+      .triangle-icon {
         width: 10px;
         height: 13px;
-        z-index: 5;
-        margin-top: 10px;
+        margin-bottom: -3px;
       }
 
-      .pointer_button {
-        position: absolute;
-        margin-top: 10px;
-        width: 500%;
-      }
-
-      .pointer.left-align {
-        left: 0;
+      .triangle-icon.left-align {
         background: linear-gradient(45deg, #10309a 50%, rgba(0, 0, 0, 0) 50%);
       }
-      .pointer.right-align {
-        right: 0;
+      .triangle-icon.right-align {
+        margin-left: auto;
         background: linear-gradient(-45deg, #10309a 50%, rgba(0, 0, 0, 0) 50%);
       }
     }
 
-    .annotation:hover {
-      width: 100px;
+    .annotation:hover,
+    .annotation:focus-within {
+      transform: translateY(-10px);
+      z-index: 999;
+      .annotation-content {
+        height: auto;
+        white-space: normal;
+        text-overflow: initial;
+        overflow: visible;
+        box-shadow: 0 5px 15px rgba(100, 100, 100, 0.5);
+
+        .annotation-cta {
+          display: block;
+        }
+      }
     }
+  }
+
+  .annotation:hover {
+    width: 100px;
   }
 
   .clusters.timeline {
