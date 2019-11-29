@@ -20,6 +20,34 @@ $card-box-shadow: rgba(51, 46, 84, 0.15) 0px 1px 5px;
 
 .wave-container {
   padding: 10px;
+
+  .spectrogram-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    overflow: hidden;
+    height: 128px;
+    z-index: 0;
+  }
+}
+
+:host ::ng-deep #waveform {
+  wave {
+    height: 256px !important;
+  }
+  wave > canvas {
+    margin-top: 123px;
+    height: 128px !important;
+  }
+  wave::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+  }
+  wave::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 }
 
 button {
@@ -194,16 +222,6 @@ section.timeline-scrollbox {
       }
     }
   }
-}
-
-:host ::ng-deep #waveform > wave::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 7px;
-}
-
-:host ::ng-deep #waveform > wave::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .header {

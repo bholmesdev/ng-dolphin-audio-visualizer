@@ -102,6 +102,7 @@ export class WaveVisualizationComponent implements OnInit {
         }),
       ],
     })
+    this.waveInstance.setCursorColor('red')
     this.waveInstance.load(`../assets/${audioFile}`)
     this.zoomWaveform(this.zoomSliderOptions.initialValue)
 
