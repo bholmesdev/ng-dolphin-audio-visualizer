@@ -98,6 +98,7 @@ section.timeline-scrollbox {
 
   .annotations.timeline {
     height: 50px;
+    min-width: calc(100% - 50px);
     margin-left: 25px;
     margin-top: 10px;
     z-index: 2;
@@ -185,6 +186,7 @@ section.timeline-scrollbox {
       background: #f8f8fa;
       flex: 1;
       box-shadow: inset rgba(51, 46, 84, 0.15) 0 0 10px;
+      min-width: 100%;
 
       .cluster {
         background: white;

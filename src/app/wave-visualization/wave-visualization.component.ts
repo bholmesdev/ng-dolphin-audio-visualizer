@@ -22,7 +22,6 @@ export class WaveVisualizationComponent implements OnInit {
   waveInstance: WaveSurfer
   timelines: Array<TimelineModel> = []
   waveformWidth: number = 0
-  minWaveformWidth: number = 0
   translateOnScroll: string = ''
   playbackTime: number = 0
   audioLength: number = 0
@@ -129,12 +128,7 @@ export class WaveVisualizationComponent implements OnInit {
 
     this.waveInstance.on('ready', () => {
       this.playbackHandler(0)
-      this.minWaveformWidth = this.waveInstance.container.offsetWidth
-      this.zone.run(() => {
-        this.loading = false
-        this.waveformWidth = this.minWaveformWidth
-      })
-      console.log(this.waveInstance.container.offsetWidth)
+      this.loading = false
     })
   }
 
@@ -183,16 +177,10 @@ export class WaveVisualizationComponent implements OnInit {
   }
 
   zoomWaveform(zoomValue) {
-    const spectrogramScaleFactor = 2
     const zoomedWidth = calcWidth(zoomValue, audioLength)
     this.zooming = true
-    console.log(this.waveInstance.spectrogram)
-    this.waveInstance.spectrogram.width = Math.max(
-      this.minWaveformWidth,
-      zoomedWidth * spectrogramScaleFactor
-    )
     this.waveInstance.on('zoom', () => {
-      this.waveformWidth = Math.max(this.minWaveformWidth, zoomedWidth)
+      this.waveformWidth = zoomedWidth
       this.zooming = false
     })
     setTimeout(() => {
