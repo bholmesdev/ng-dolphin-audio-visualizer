@@ -137,6 +137,25 @@ section.timeline-scrollbox {
   }
 }
 
+.spectrogram-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 128px;
+  z-index: -1;
+}
+
+:host ::ng-deep #waveform {
+  wave {
+    height: 256px !important;
+  }
+  wave > canvas {
+    margin-top: 123px;
+    height: 128px !important;
+  }
+}
+
 :host ::ng-deep #waveform > wave::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px;
