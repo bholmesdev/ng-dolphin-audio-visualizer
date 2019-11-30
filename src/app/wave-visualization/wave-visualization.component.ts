@@ -177,8 +177,13 @@ export class WaveVisualizationComponent implements OnInit {
   }
 
   zoomWaveform(zoomValue) {
+    console.log(this.waveInstance.spectrogram)
     const zoomedWidth = calcWidth(zoomValue, audioLength)
     this.zooming = true
+    this.waveInstance.spectrogram.width = Math.max(
+      this.waveInstance.container.offsetWidth,
+      zoomedWidth * 2
+    )
     this.waveInstance.on('zoom', () => {
       this.waveformWidth = zoomedWidth
       this.zooming = false
