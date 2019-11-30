@@ -3,8 +3,12 @@ import WaveSurfer from 'wavesurfer.js'
 import SpectrogramPlugin from 'wavesurfer.js/src/plugin/spectrogram'
 import RegionPlugin from 'wavesurfer.js/src/plugin/regions'
 import TimelinePlugin from 'wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js'
-import { audioFile, audioLength, timelines } from '../../assets/audio_data/12345678'
-import {RegionModel, TimelineModel} from './timeline-model'
+import {
+  audioFile,
+  audioLength,
+  timelines,
+} from '../../assets/audio_data/12345678'
+import { RegionModel, TimelineModel } from './timeline-model'
 import { ChangeContext } from 'ng5-slider'
 import {
   assignColorsToTimelineRegions,
@@ -29,7 +33,7 @@ export class WaveVisualizationComponent implements OnInit {
   zooming: boolean
   waitingOnScrollAnimFrame: boolean
   currentEncoding: number
-  learningAlgorithms = [ 'v2_lstm_v4' ] //supported learning algorithms
+  learningAlgorithms = ['v2_lstm_v4'] //supported learning algorithms
   manualAnnotations: any = [
     {
       time: 0,
@@ -64,6 +68,7 @@ export class WaveVisualizationComponent implements OnInit {
   constructor(public zone: NgZone) {
     this.loading = true
     this.zooming = false
+    this.currentEncoding = 12345678
     this.waitingOnScrollAnimFrame = false
     this.timelines = []
     this.waveformWidth = calcWidth(1, audioLength)
@@ -76,20 +81,16 @@ export class WaveVisualizationComponent implements OnInit {
       this.timelines.push(coloredTimeline)
     })
 
-    this.manualAnnotations = assignPositionsToAnnotations(
-      this.manualAnnotations,
-      audioLength
-    )
-  }
-
-  ngOnInit() {
-
     /*TODO: Read all encodings and display all the buttons/list,
     for now, we imagine button for encoding 12345678 is clicked.
    */
-    this.currentEncoding = 12345678;
     //TODO: somehow get length of audio file from data beforehand
 
+    this.generateTimelines()
+    this.generateManualAnnotationTimeline()
+  }
+
+  ngOnInit() {
     if (this.waveInstance != null) {
       this.waveInstance.destroy()
     }
@@ -136,9 +137,9 @@ export class WaveVisualizationComponent implements OnInit {
 
     this.waveInstance.on('ready', () => {
       this.playbackHandler(0)
-      this.generateManualAnnotationTimeline();
-      this.generateTimelines();
-      this.loading = false
+      this.zone.run(() => {
+        this.loading = false
+      })
     })
   }
 
@@ -203,66 +204,65 @@ export class WaveVisualizationComponent implements OnInit {
   }
 
   generateTimelines() {
-
-    this.learningAlgorithms.forEach(algorithm => {
+    this.learningAlgorithms.forEach(async algorithm => {
       //TODO: insert api url here instead of local example
-      let timeline = new TimelineModel(algorithm);
-      const loc = '../assets/audio_data/audio_' + algorithm + '_encodings/' + this.currentEncoding + '.json';
-      fetch(loc)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error("HTTP error " + response.status);
-          }
-          return response.json();
-        })
-        .then(clusters => {
-          clusters.forEach(cluster => {
-            cluster.forEach(c => {
-              timeline.addRegion(new RegionModel({
-                start: c.start / 48000,
-                end: c.stop / 48000,
-                label: c.cluster_id
-              }))
-            })
+      const loc =
+        '../assets/audio_data/audio_' +
+        algorithm +
+        '_encodings/' +
+        this.currentEncoding +
+        '.json'
+
+      try {
+        const response = await fetch(loc)
+        var clusterTimelines = await response.json()
+
+        let timeline = new TimelineModel(algorithm)
+        clusterTimelines.forEach(clusterTimeline => {
+          clusterTimeline.forEach(cluster => {
+            timeline.addRegion(
+              new RegionModel({
+                start: cluster.start / 48000,
+                end: cluster.stop / 48000,
+                label: cluster.cluster_id,
+              })
+            )
           })
         })
-        .catch((e) => {
-          console.error('error', e);
-        });
 
-      console.log(timeline)
-
-      const coloredTimeline = assignColorsToTimelineRegions(
-        timeline,
-        audioLength
-      )
-      this.timelines.push(coloredTimeline)
+        const coloredTimeline = assignColorsToTimelineRegions(
+          timeline,
+          audioLength
+        )
+        this.timelines.push(coloredTimeline)
+      } catch {}
     })
   }
 
   generateManualAnnotationTimeline() {
     //TODO: insert api url here instead of local example
-    const loc = '../assets/audio_data/audio_manual_encodings/' + this.currentEncoding + '.json';
+    const loc =
+      '../assets/audio_data/audio_manual_encodings/' +
+      this.currentEncoding +
+      '.json'
     fetch(loc)
       .then(response => {
         if (!response.ok) {
-          throw new Error("HTTP error " + response.status);
+          throw new Error('HTTP error ' + response.status)
         }
-        return response.json();
+        return response.json()
       })
       .then(annotations => {
         annotations.forEach(annotation => {
-          this.manualAnnotations.push(
-            {
-              time: annotation.timecode,
-              description: annotation.description
-            }
-          )
+          this.manualAnnotations.push({
+            time: annotation.timecode,
+            description: annotation.description,
+          })
         })
       })
-      .catch((e) => {
-        console.error('error', e);
-      });
+      .catch(e => {
+        console.error('error', e)
+      })
     this.manualAnnotations = assignPositionsToAnnotations(
       this.manualAnnotations,
       audioLength
