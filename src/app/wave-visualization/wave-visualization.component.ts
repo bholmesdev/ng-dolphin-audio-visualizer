@@ -34,21 +34,7 @@ export class WaveVisualizationComponent implements OnInit {
   waitingOnScrollAnimFrame: boolean
   currentEncoding: number
   learningAlgorithms = ['v2_lstm_v4'] //supported learning algorithms
-  manualAnnotations: any = [
-    {
-      time: 0,
-      description: 'PLAY TAIL CALVES STARTLE',
-    },
-    {
-      time: 4.5,
-      description: 'NEMATOCYST THROAT?',
-    },
-    {
-      time: 9,
-      description:
-        'NEMATOCYST BUBBLES THREE MALE COALITION CALVES FONDUE VERDE NEMATOCYST?',
-    },
-  ]
+  manualAnnotations: any = [ ]
 
   //ng-5 slider options
   zoomSliderOptions = {
@@ -73,24 +59,17 @@ export class WaveVisualizationComponent implements OnInit {
     this.timelines = []
     this.waveformWidth = calcWidth(1, audioLength)
     this.audioLength = audioLength
-    timelines.forEach((timeline: TimelineModel) => {
-      const coloredTimeline = assignColorsToTimelineRegions(
-        timeline,
-        audioLength
-      )
-      this.timelines.push(coloredTimeline)
-    })
 
     /*TODO: Read all encodings and display all the buttons/list,
     for now, we imagine button for encoding 12345678 is clicked.
    */
     //TODO: somehow get length of audio file from data beforehand
-
-    this.generateTimelines()
-    this.generateManualAnnotationTimeline()
   }
 
   ngOnInit() {
+
+    this.generateTimelines()
+
     if (this.waveInstance != null) {
       this.waveInstance.destroy()
     }
@@ -113,7 +92,23 @@ export class WaveVisualizationComponent implements OnInit {
       ],
     })
     this.waveInstance.setCursorColor('red')
-    this.waveInstance.load(`../assets/audio_data/audio_files/${audioFile}`)
+
+    fetch(`../assets/audio_data/audio_waveform_data/${this.currentEncoding}.json`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("HTTP error " + response.status);
+        }
+        return response.json();
+      })
+      .then(peaks => {
+        console.log('loaded peaks! sample_rate: ' + peaks.sample_rate);
+
+        // load peaks into wavesurfer.js
+        this.waveInstance.load(`../assets/audio_data/audio_files/${audioFile}`, peaks.data);
+      })
+      .catch((e) => {
+        console.error('error', e);
+      });
 
     this.waveInstance.on('scroll', event => {
       if (!this.waitingOnScrollAnimFrame) {
@@ -208,7 +203,12 @@ export class WaveVisualizationComponent implements OnInit {
     this.zoomWaveform($event.value)
   }
 
-  generateTimelines() {
+  async generateTimelines() {
+    await this.generateManualAnnotationTimeline()
+    await this.generateLearningAlgorithmTimelines()
+  }
+
+  generateLearningAlgorithmTimelines() {
     this.learningAlgorithms.forEach(async algorithm => {
       //TODO: insert api url here instead of local example
       const loc =
@@ -218,56 +218,49 @@ export class WaveVisualizationComponent implements OnInit {
         this.currentEncoding +
         '.json'
 
-      try {
-        const response = await fetch(loc)
-        var clusterTimelines = await response.json()
 
-        let timeline = new TimelineModel(algorithm)
-        clusterTimelines.forEach(clusterTimeline => {
-          clusterTimeline.forEach(cluster => {
-            timeline.addRegion(
-              new RegionModel({
-                start: cluster.start / 48000,
-                end: cluster.stop / 48000,
-                label: cluster.cluster_id,
-              })
-            )
-          })
+      const response = await fetch(loc)
+      var clusterTimelines = await response.json()
+
+      let timeline = new TimelineModel(algorithm)
+      clusterTimelines.forEach(clusterTimeline => {
+        clusterTimeline.forEach(cluster => {
+          timeline.addRegion(
+            new RegionModel({
+              start: cluster.start / 48000,
+              end: cluster.stop / 48000,
+              label: cluster.cluster_id,
+            })
+          )
         })
+      })
 
-        const coloredTimeline = assignColorsToTimelineRegions(
-          timeline,
-          audioLength
-        )
-        this.timelines.push(coloredTimeline)
-      } catch {}
+      const coloredTimeline = assignColorsToTimelineRegions(
+        timeline,
+        audioLength
+      )
+      this.timelines.push(coloredTimeline)
+
     })
   }
 
-  generateManualAnnotationTimeline() {
+  async generateManualAnnotationTimeline() {
     //TODO: insert api url here instead of local example
     const loc =
       '../assets/audio_data/audio_manual_encodings/' +
       this.currentEncoding +
       '.json'
-    fetch(loc)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('HTTP error ' + response.status)
-        }
-        return response.json()
+
+    const response = await fetch(loc)
+    var annotations = await response.json()
+
+    annotations.forEach(annotation => {
+      this.manualAnnotations.push({
+        time: annotation.timecode / 48000,
+        description: annotation.description,
       })
-      .then(annotations => {
-        annotations.forEach(annotation => {
-          this.manualAnnotations.push({
-            time: annotation.timecode,
-            description: annotation.description,
-          })
-        })
-      })
-      .catch(e => {
-        console.error('error', e)
-      })
+    })
+
     this.manualAnnotations = assignPositionsToAnnotations(
       this.manualAnnotations,
       audioLength
