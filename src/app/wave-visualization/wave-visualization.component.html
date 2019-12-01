@@ -69,7 +69,7 @@
           [style.background]="region.color"
           [attr.data-start]="region.start"
           [attr.data-end]="region.end"
-          (click)="selectCluster(region.start, region.end)"
+          (click)="selectCluster(region.start, region.end,region.color)"
         >
           {{ region.label }}
         </button>

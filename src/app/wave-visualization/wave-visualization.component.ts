@@ -6,6 +6,7 @@ import TimelinePlugin from 'wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js
 import { audioFile, audioLength, timelines } from '../../assets/dolphin-data.js'
 import { TimelineModel } from './timeline-model'
 import { ChangeContext } from 'ng5-slider'
+ 
 import {
   assignColorsToTimelineRegions,
   formatTimelineIntervals,
@@ -145,6 +146,7 @@ export class WaveVisualizationComponent implements OnInit {
       } else {
         regionEl.classList.remove('highlighted')
       }
+     
     }
 
     this.zone.run(() => {
@@ -157,14 +159,16 @@ export class WaveVisualizationComponent implements OnInit {
     this.waveInstance.seekTo(percentTime / 100)
   }
 
-  selectCluster(startTime, endTime) {
+  selectCluster(startTime, endTime,regionColor) {
     this.waveInstance.clearRegions()
     const waveRegion = this.waveInstance.addRegion({
       start: startTime,
       end: endTime,
-      color: 'rgba(3, 252, 240, 0.5)',
+      color: regionColor,
+      opacity: 0.5,
       drag: false,
     })
+    console.log(waveRegion);
     waveRegion.play()
   }
 

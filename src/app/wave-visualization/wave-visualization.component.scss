@@ -30,6 +30,9 @@ $card-box-shadow: rgba(51, 46, 84, 0.15) 0px 1px 5px;
     height: 128px;
     z-index: 0;
   }
+  // .wavesurfer-region{
+  //   opacity: 0.6;
+  // }
 }
 
 :host ::ng-deep #waveform {
@@ -53,6 +56,10 @@ $card-box-shadow: rgba(51, 46, 84, 0.15) 0px 1px 5px;
 :host ::ng-deep #spectrogram canvas:nth-child(2) {
   min-width: 100%;
   max-height: 128px !important;
+}
+
+:host::ng-deep .wavesurfer-region {
+  opacity: 0.5 !important;
 }
 
 button {

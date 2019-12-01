@@ -1,12 +1,28 @@
 import { TimelineModel } from './timeline-model'
 
 const getRandomColor = () => {
-  const letters = 'BCDEF'.split('')
-  let color = '#'
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * letters.length)]
-  }
-  return color
+
+  // const letters = 'BCDEF'.split('')
+  // let color = '#'
+  // for (let i = 0; i < 6; i++) {
+  //   color += letters[Math.floor(Math.random() * letters.length)]
+  // }
+
+  // color += Math.floor(Math.random()*16777215).toString(16);
+
+  //let color = `hsla(${~~(360 * Math.random())},70%,70%,0.8)`
+
+  //let color = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+
+  // return "hsl(" + 360 * Math.random() + ',' +
+  //            (25 + 70 * Math.random()) + '%,' + 
+  //            (85 + 10 * Math.random()) + '%)'
+
+  return "hsla(" + ~~(360 * Math.random()) + "," +
+  "70%,"+
+  "80%,1)"
+  
+  // return color
 }
 
 export const calcWidth = (zoomValue, audioLength) =>
