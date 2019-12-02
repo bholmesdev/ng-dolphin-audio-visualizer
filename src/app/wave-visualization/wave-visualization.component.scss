@@ -21,6 +21,40 @@ $card-box-shadow: rgba(51, 46, 84, 0.15) 0px 1px 5px;
 .wave-container {
   padding: 10px;
 
+  .controls {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    margin: 0 10px;
+
+    .playback-time {
+      width: 30px;
+      margin-right: 10px;
+    }
+
+    ng5-slider {
+      max-width: 500px;
+      margin-top: 0;
+    }
+
+    .zoom-label {
+      font-weight: bold;
+      margin-right: 20px;
+      margin-left: auto;
+    }
+
+    button {
+      margin: 20px;
+      background: #3483eb;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+    }
+    .button:hover {
+      width: 100px;
+    }
+  }
+
   .spectrogram-container {
     position: absolute;
     top: 10px;
@@ -231,38 +265,5 @@ section.timeline-scrollbox {
         transform: translateY(-80px);
       }
     }
-  }
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  height: 100px;
-
-  .playback-time {
-    width: 30px;
-    margin-right: 10px;
-  }
-
-  ng5-slider {
-    max-width: 500px;
-    margin-top: 0;
-  }
-
-  .zoom-label {
-    font-weight: bold;
-    margin-right: 20px;
-    margin-left: auto;
-  }
-
-  button {
-    margin: 20px;
-    background: #3483eb;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-  }
-  .button:hover {
-    width: 100px;
   }
 }
