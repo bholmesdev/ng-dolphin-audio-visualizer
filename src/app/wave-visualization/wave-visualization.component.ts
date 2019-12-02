@@ -34,7 +34,7 @@ export class WaveVisualizationComponent implements OnInit {
   waitingOnScrollAnimFrame: boolean
   currentEncoding: number
   learningAlgorithms = ['v2_lstm_v4'] //supported learning algorithms
-  manualAnnotations: any = [ ]
+  manualAnnotations: any = []
 
   //ng-5 slider options
   zoomSliderOptions = {
@@ -66,8 +66,7 @@ export class WaveVisualizationComponent implements OnInit {
     //TODO: somehow get length of audio file from data beforehand
   }
 
-  ngOnInit() {
-
+  async ngOnInit() {
     this.generateTimelines()
 
     if (this.waveInstance != null) {
@@ -92,23 +91,16 @@ export class WaveVisualizationComponent implements OnInit {
       ],
     })
     this.waveInstance.setCursorColor('red')
+    this.loadWavePeakData()
+    this.zoomWaveform(1)
 
-    fetch(`../assets/audio_data/audio_waveform_data/${this.currentEncoding}.json`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("HTTP error " + response.status);
-        }
-        return response.json();
+    this.waveInstance.on('ready', () => {
+      console.log('ready!')
+      this.playbackHandler(0)
+      this.zone.run(() => {
+        this.loading = false
       })
-      .then(peaks => {
-        console.log('loaded peaks! sample_rate: ' + peaks.sample_rate);
-
-        // load peaks into wavesurfer.js
-        this.waveInstance.load(`../assets/audio_data/audio_files/${audioFile}`, peaks.data);
-      })
-      .catch((e) => {
-        console.error('error', e);
-      });
+    })
 
     this.waveInstance.on('scroll', event => {
       if (!this.waitingOnScrollAnimFrame) {
@@ -129,13 +121,18 @@ export class WaveVisualizationComponent implements OnInit {
     this.waveInstance.on('seek', percentScrubbed =>
       this.playbackHandler(percentScrubbed * audioLength)
     )
+  }
 
-    this.waveInstance.on('ready', () => {
-      this.playbackHandler(0)
-      this.zone.run(() => {
-        this.loading = false
-      })
-    })
+  async loadWavePeakData() {
+    const response = await fetch(
+      `../assets/audio_data/audio_waveform_data/${this.currentEncoding}.json`
+    )
+    const peaks = await response.json()
+
+    this.waveInstance.load(
+      `../assets/audio_data/audio_files/${audioFile}`,
+      peaks.data
+    )
   }
 
   playbackHandler(playbackTime) {
@@ -218,7 +215,6 @@ export class WaveVisualizationComponent implements OnInit {
         this.currentEncoding +
         '.json'
 
-
       const response = await fetch(loc)
       var clusterTimelines = await response.json()
 
@@ -240,7 +236,6 @@ export class WaveVisualizationComponent implements OnInit {
         audioLength
       )
       this.timelines.push(coloredTimeline)
-
     })
   }
 
