@@ -1,22 +1,24 @@
 <div class="app-container">
-  <section class="header">
-    <p class="playback-time">{{ playbackTime }}s</p>
-    <button (click)="togglePlayback()">Play / Pause</button>
-    <p class="zoom-label">Zoom</p>
-    <ng5-slider
-      [(value)]="zoomSliderOptions.initialValue"
-      [options]="zoomSliderOptions.options"
-      (userChangeEnd)="onSliderZoom($event)"
-    >
-    </ng5-slider>
-  </section>
   <section class="wave-container card-bg">
-    <loading-overlay [loading]="loading || zooming"></loading-overlay>
-    <div class="spectrogram-container">
-      <div id="spectrogram"></div>
-    </div>
-    <div id="waveform"></div>
-    <div id="wave-timeline"></div>
+    <section class="controls">
+      <p class="playback-time">{{ playbackTime }}s</p>
+      <button (click)="togglePlayback()">Play / Pause</button>
+      <p class="zoom-label">Zoom</p>
+      <ng5-slider
+        [(value)]="zoomSliderOptions.initialValue"
+        [options]="zoomSliderOptions.options"
+        (userChangeEnd)="onSliderZoom($event)"
+      >
+      </ng5-slider>
+    </section>
+    <section>
+      <loading-overlay [loading]="loading || zooming"></loading-overlay>
+      <div class="spectrogram-container">
+        <div id="spectrogram"></div>
+      </div>
+      <div id="waveform"></div>
+      <div id="wave-timeline"></div>
+    </section>
   </section>
   <section class="timeline-scrollbox">
     <section
@@ -69,7 +71,7 @@
           [style.background]="region.color"
           [attr.data-start]="region.start"
           [attr.data-end]="region.end"
-          (click)="selectCluster(region.start, region.end)"
+          (click)="selectCluster(region.start, region.end, region.color)"
         >
           {{ region.label }}
         </button>

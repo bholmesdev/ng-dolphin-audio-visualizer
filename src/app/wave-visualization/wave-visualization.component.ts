@@ -10,6 +10,7 @@ import {
 } from '../../assets/audio_data/12345678'
 import { RegionModel, TimelineModel } from './timeline-model'
 import { ChangeContext } from 'ng5-slider'
+
 import {
   assignColorsToTimelineRegions,
   formatTimelineIntervals,
@@ -133,6 +134,13 @@ export class WaveVisualizationComponent implements OnInit {
       `../assets/audio_data/audio_files/${audioFile}`,
       peaks.data
     )
+
+    this.waveInstance.on('ready', () => {
+      this.playbackHandler(0)
+      this.zone.run(() => {
+        this.loading = false
+      })
+    })
   }
 
   playbackHandler(playbackTime) {
@@ -160,14 +168,16 @@ export class WaveVisualizationComponent implements OnInit {
     this.waveInstance.seekTo(percentTime / 100)
   }
 
-  selectCluster(startTime, endTime) {
+  selectCluster(startTime, endTime, regionColor) {
     this.waveInstance.clearRegions()
     const waveRegion = this.waveInstance.addRegion({
       start: startTime,
       end: endTime,
-      color: 'rgba(3, 252, 240, 0.5)',
+      color: regionColor,
+      opacity: 0.5,
       drag: false,
     })
+    console.log(waveRegion)
     waveRegion.play()
   }
 
