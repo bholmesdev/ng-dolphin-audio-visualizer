@@ -3,8 +3,12 @@ import WaveSurfer from 'wavesurfer.js'
 import SpectrogramPlugin from 'wavesurfer.js/src/plugin/spectrogram'
 import RegionPlugin from 'wavesurfer.js/src/plugin/regions'
 import TimelinePlugin from 'wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js'
-import { audioFile, audioLength, timelines } from '../../assets/dolphin-data.js'
-import { TimelineModel } from './timeline-model'
+import {
+  audioFile,
+  audioLength,
+  timelines,
+} from '../../assets/audio_data/12345678'
+import { RegionModel, TimelineModel } from './timeline-model'
 import { ChangeContext } from 'ng5-slider'
 
 import {
@@ -29,21 +33,9 @@ export class WaveVisualizationComponent implements OnInit {
   loading: boolean
   zooming: boolean
   waitingOnScrollAnimFrame: boolean
-  exampleAnnotations: any = [
-    {
-      time: 0,
-      description: 'PLAY TAIL CALVES STARTLE',
-    },
-    {
-      time: 4.5,
-      description: 'NEMATOCYST THROAT?',
-    },
-    {
-      time: 9,
-      description:
-        'NEMATOCYST BUBBLES THREE MALE COALITION CALVES FONDUE VERDE NEMATOCYST?',
-    },
-  ]
+  currentEncoding: number
+  learningAlgorithms = ['v2_lstm_v4'] //supported learning algorithms
+  manualAnnotations: any = []
 
   //ng-5 slider options
   zoomSliderOptions = {
@@ -63,25 +55,21 @@ export class WaveVisualizationComponent implements OnInit {
   constructor(public zone: NgZone) {
     this.loading = true
     this.zooming = false
+    this.currentEncoding = 12345678
     this.waitingOnScrollAnimFrame = false
     this.timelines = []
     this.waveformWidth = calcWidth(1, audioLength)
     this.audioLength = audioLength
-    timelines.forEach((timeline: TimelineModel) => {
-      const coloredTimeline = assignColorsToTimelineRegions(
-        timeline,
-        audioLength
-      )
-      this.timelines.push(coloredTimeline)
-    })
 
-    this.exampleAnnotations = assignPositionsToAnnotations(
-      this.exampleAnnotations,
-      audioLength
-    )
+    /*TODO: Read all encodings and display all the buttons/list,
+    for now, we imagine button for encoding 12345678 is clicked.
+   */
+    //TODO: somehow get length of audio file from data beforehand
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.generateTimelines()
+
     if (this.waveInstance != null) {
       this.waveInstance.destroy()
     }
@@ -104,7 +92,16 @@ export class WaveVisualizationComponent implements OnInit {
       ],
     })
     this.waveInstance.setCursorColor('red')
-    this.waveInstance.load(`../assets/${audioFile}`)
+    this.loadWavePeakData()
+    this.zoomWaveform(1)
+
+    this.waveInstance.on('ready', () => {
+      console.log('ready!')
+      this.playbackHandler(0)
+      this.zone.run(() => {
+        this.loading = false
+      })
+    })
 
     this.waveInstance.on('scroll', event => {
       if (!this.waitingOnScrollAnimFrame) {
@@ -112,7 +109,6 @@ export class WaveVisualizationComponent implements OnInit {
           this.translateOnScroll = `translateX(${-event.target.scrollLeft}px)`
           this.waitingOnScrollAnimFrame = false
         })
-
         this.waitingOnScrollAnimFrame = true
       }
     })
@@ -125,6 +121,18 @@ export class WaveVisualizationComponent implements OnInit {
     // Update current playback time when user manually moves playhead
     this.waveInstance.on('seek', percentScrubbed =>
       this.playbackHandler(percentScrubbed * audioLength)
+    )
+  }
+
+  async loadWavePeakData() {
+    const response = await fetch(
+      `../assets/audio_data/audio_waveform_data/${this.currentEncoding}.json`
+    )
+    const peaks = await response.json()
+
+    this.waveInstance.load(
+      `../assets/audio_data/audio_files/${audioFile}`,
+      peaks.data
     )
 
     this.waveInstance.on('ready', () => {
@@ -200,5 +208,67 @@ export class WaveVisualizationComponent implements OnInit {
 
   onSliderZoom($event: ChangeContext) {
     this.zoomWaveform($event.value)
+  }
+
+  async generateTimelines() {
+    await this.generateManualAnnotationTimeline()
+    await this.generateLearningAlgorithmTimelines()
+  }
+
+  generateLearningAlgorithmTimelines() {
+    this.learningAlgorithms.forEach(async algorithm => {
+      //TODO: insert api url here instead of local example
+      const loc =
+        '../assets/audio_data/audio_' +
+        algorithm +
+        '_encodings/' +
+        this.currentEncoding +
+        '.json'
+
+      const response = await fetch(loc)
+      var clusterTimelines = await response.json()
+
+      let timeline = new TimelineModel(algorithm)
+      clusterTimelines.forEach(clusterTimeline => {
+        clusterTimeline.forEach(cluster => {
+          timeline.addRegion(
+            new RegionModel({
+              start: cluster.start / 48000,
+              end: cluster.stop / 48000,
+              label: cluster.cluster_id,
+            })
+          )
+        })
+      })
+
+      const coloredTimeline = assignColorsToTimelineRegions(
+        timeline,
+        audioLength
+      )
+      this.timelines.push(coloredTimeline)
+    })
+  }
+
+  async generateManualAnnotationTimeline() {
+    //TODO: insert api url here instead of local example
+    const loc =
+      '../assets/audio_data/audio_manual_encodings/' +
+      this.currentEncoding +
+      '.json'
+
+    const response = await fetch(loc)
+    var annotations = await response.json()
+
+    annotations.forEach(annotation => {
+      this.manualAnnotations.push({
+        time: annotation.timecode / 48000,
+        description: annotation.description,
+      })
+    })
+
+    this.manualAnnotations = assignPositionsToAnnotations(
+      this.manualAnnotations,
+      audioLength
+    )
   }
 }

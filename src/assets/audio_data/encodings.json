@@ -1,0 +1,74 @@
+[
+  {
+    "id": 0,
+    "YEAR": 2011,
+    "encoding": 5111101,
+    "behavior": "PL NU",
+    "activity_lvl": 3,
+    "stenella_key": "POX COALITION FIRST OF SEASON",
+    "spot_id": "STUBBY COFFEE FUDGE SUMMER ZIPP FLYING A VENUS NAIA VIOLET FREEDOM VERDE FAB VAL NEMATOCYST FLAMBE ZAP SHADES FONDUE"
+  },
+  {
+    "id": 1,
+    "YEAR": 2011,
+    "encoding": 5121101,
+    "behavior": "PL NU",
+    "activity_lvl": 3,
+    "stenella_key": "PLAY NURSE POX HEAD HEAD DEFACATION FECAL SAMPLE REGURGITATION PREGNANT BOWRIDE WHISTLES",
+    "spot_id": "ZIPP STUBBY COFFEE FUDGE VENUS FLYING A SUMMER NAIA VIOLET FLAMBE FREEDOM FONDUE VAL FAB NEMATOCYST SHADES VERDE ZAP"
+  },
+  {
+    "id": 2,
+    "YEAR": 2011,
+    "encoding": 5131101,
+    "behavior": "TR DI",
+    "activity_lvl": 2,
+    "stenella_key": "TRAVEL DISCIPLINE SWIM BY CHASE DEFECATION BOWRIDE",
+    "spot_id": "STUBBY ZIPP FLYING A SUMMER VENUS VIOLET NAIA FREEDOM FLAMBE VERDE ZAP FAB SHADES VAL"
+  },
+  {
+    "id": 3,
+    "YEAR": 2011,
+    "encoding": 5141101,
+    "behavior": "PL TR",
+    "activity_lvl": 2,
+    "stenella_key": "PLAY TRAVEL AERIALS BOWRIDE",
+    "spot_id": "GEO BISHU PIGLET POINTLESS BAMBOO BIJYO"
+  },
+  {
+    "id": 4,
+    "YEAR": 2011,
+    "encoding": 5141102,
+    "behavior": "PL AG",
+    "activity_lvl": 3,
+    "stenella_key": "AGGRESSION PLAY DEFECATION PREGNANT OPEN MOUTH BABYSITTING TRAVEL",
+    "spot_id": "NASSAU ZOT AMANDA NEREIDE"
+  },
+  {
+    "id": 5,
+    "YEAR": 2011,
+    "encoding": 5151101,
+    "behavior": "PL",
+    "activity_lvl": 2,
+    "stenella_key": "PLAY BOWRIDE BUBBLES",
+    "spot_id": "VENUS NAIA VAL NEMATOCYST"
+  },
+  {
+    "id": 6,
+    "YEAR": 2011,
+    "encoding": 5161101,
+    "behavior": "PL",
+    "activity_lvl": 2,
+    "stenella_key": "PLAY PEC PEC PEC HEAD PLAY WITH CORAL BOWRIDE S POSTURE TRIO PEC RUB",
+    "spot_id": "LINUS MALIBU PICASSO SUNAMI KAI LHASA"
+  },
+  {
+    "id": 7,
+    "YEAR": 2019,
+    "encoding": 12345678,
+    "behavior": "PL",
+    "activity_lvl": 2,
+    "stenella_key": "PLAY PEC PEC PEC HEAD PLAY WITH CORAL BOWRIDE S POSTURE TRIO PEC RUB",
+    "spot_id": "LINUS MALIBU PICASSO SUNAMI KAI LHASA"
+  }
+]

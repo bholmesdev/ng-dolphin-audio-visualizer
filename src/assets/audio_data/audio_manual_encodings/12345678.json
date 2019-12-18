@@ -1,0 +1,46 @@
+[
+  {
+    "id": 11,
+    "YEAR": 2011,
+    "encoding": 12345678,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "NO",
+    "timecode": 0,
+    "description": "SIX SPECKLED LHASA"
+  },
+  {
+    "id": 12,
+    "YEAR": 2011,
+    "encoding": 12345678,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "YES",
+    "timecode": 216000,
+    "description": "LINUS"
+  },
+  {
+    "id": 13,
+    "YEAR": 2011,
+    "encoding": 12345678,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "YES",
+    "timecode": 336000,
+    "description": "MALIBU"
+  },
+  {
+    "id": 14,
+    "YEAR": 2011,
+    "encoding": 12345678,
+    "context": "PLAY",
+    "sound_type": "?",
+    "species": "Spotted",
+    "spot_id": "YES",
+    "timecode": 432000,
+    "description": "PICASSO? FLUKE NICK"
+  }
+]

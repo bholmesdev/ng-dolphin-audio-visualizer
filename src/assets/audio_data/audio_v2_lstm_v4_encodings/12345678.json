@@ -1,0 +1,44 @@
+[
+  [
+    {
+      "encoding": 12345678,
+      "filename": "12345678.wav",
+      "start": 0,
+      "stop": 120000,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 1
+    },
+    {
+      "encoding": 12345678,
+      "filename": "12345678.wav",
+      "start": 144000,
+      "stop": 168000,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 2
+    },
+    {
+      "encoding": 12345678,
+      "filename": "12345678.wav",
+      "start": 192000,
+      "stop": 196800,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 3
+    },
+    {
+      "encoding": 12345678,
+      "filename": "12345678.wav",
+      "start": 211200,
+      "stop": 297600,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 4
+    },
+    {
+      "encoding": 12345678,
+      "filename": "12345678.wav",
+      "start": 384000,
+      "stop": 408000,
+      "algorithm": "v2_lstm_v4",
+      "cluster_id": 5
+    }
+  ]
+]

@@ -1,7 +1,12 @@
 import { TimelineModel } from './timeline-model'
 
 const getRandomColor = () => {
-  return 'hsla(' + ~~(360 * Math.random()) + ',' + '70%,' + '80%,1)'
+  const letters = 'BCDEF'.split('')
+  let color = '#'
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * letters.length)]
+  }
+  return color
 }
 
 export const calcWidth = (zoomValue, audioLength) =>
@@ -39,24 +44,13 @@ export const assignColorsToTimelineRegions = (
     if (!assignedColor) {
       colorMap.set(region.label, getRandomColor())
     }
+    region.percentStart = (region.start / audioLength) * 100
+    region.percentWidth = ((region.end / audioLength) * 100) - region.percentStart
+    region.showTooltip =  region.percentWidth < 6
+    region.color = colorMap.get(region.label)
   })
 
-  return {
-    name: timeline.name,
-    regions: timeline.regions.map(region => {
-      const percentStart = (region.start / audioLength) * 100
-      const percentEnd = (region.end / audioLength) * 100
-      const percentWidth = percentEnd - percentStart
-
-      return {
-        ...region,
-        percentWidth,
-        percentStart,
-        showTooltip: percentWidth < 6,
-        color: colorMap.get(region.label),
-      }
-    }),
-  }
+  return timeline
 }
 
 export const assignPositionsToAnnotations = (
